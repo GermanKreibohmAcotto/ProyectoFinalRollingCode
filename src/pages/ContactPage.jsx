@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import emailjs from '@emailjs/browser'
+import emailjs from '@emailjs/browser';
 import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
