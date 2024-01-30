@@ -7,10 +7,21 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import "../components/css/NavbarC.css"
-import { Link } from 'react-router-dom'
 import { useState, useEffect } from "react"
+import Modal from 'react-bootstrap/Modal';
 
 const NavbarC = () => {
+
+  const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
+
+  const publicar = (values) => {
+    console.log(values);
+  }
 
   return (
     <>
@@ -35,12 +46,51 @@ const NavbarC = () => {
               </Row>
             </Form>
             <Nav>
-              <Link to="#link" className='nav-link'>Iniciar Sesion</Link>
-              <Link to="#link" className='nav-link'>Registrarse</Link>
+              <Button variant="primary" onClick={handleShow}>
+                Iniciar Sesion
+              </Button>
+              <Button variant="primary" onClick={handleShow2}>
+                Registrarse
+              </Button>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Iniciar Sesion</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={show2} onHide={handleClose2}>
+        <Modal.Header closeButton>
+          <Modal.Title>Registrarse
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose2}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose2}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
 
   )
