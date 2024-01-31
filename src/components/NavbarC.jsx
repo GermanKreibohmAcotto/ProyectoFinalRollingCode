@@ -12,6 +12,17 @@ import { useState, useEffect } from "react"
 
 const NavbarC = () => {
 
+  const [palabraClave, setPalabraClave] = useState("")
+  
+  const handleChange = (ev) => {
+    setPalabraClave(ev.target.value)
+  }
+
+  const handleClick = (ev) => {
+    ev.preventDefault()
+    window.location=`/result/${palabraClave}`
+  }
+
   return (
     <>
       <Navbar expand="lg" className="cNavbar">
@@ -27,10 +38,11 @@ const NavbarC = () => {
                     type="text"
                     placeholder="Por ej: caramelos"
                     className=" mr-sm-2"
+                    onChange={handleChange}
                   />
                 </Col>
                 <Col xs="auto">
-                  <Button >Buscar</Button>
+                  <Button onClick={handleClick}>Buscar</Button>
                 </Col>
               </Row>
             </Form>
