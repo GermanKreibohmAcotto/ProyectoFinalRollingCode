@@ -192,26 +192,26 @@ const NavbarC = () => {
                   </>
                   :
                   <>
-                  <Form>
-                    <Row className='jusify-content-center'>
-                      <Col xs="auto">
-                        <Form.Control
-                          type="text"
-                          placeholder="Por ej: caramelos"
-                          className=" mr-sm-2"
-                        />
-                      </Col>
-                      <Col xs="auto">
-                        <Button >Buscar</Button>
-                      </Col>
-                    </Row>
-                  </Form>
-                  <Nav>
+                    <Form>
+                      <Row className='jusify-content-center'>
+                        <Col xs="auto">
+                          <Form.Control
+                            type="text"
+                            placeholder="Por ej: caramelos"
+                            className=" mr-sm-2"
+                          />
+                        </Col>
+                        <Col xs="auto">
+                          <Button >Buscar</Button>
+                        </Col>
+                      </Row>
+                    </Form>
+                    <Nav>
                       <Nav.Link href="#link">
-                        Usuarios
+                        Sobre Nosotros
                       </Nav.Link>
                       <Nav.Link href="#link">
-                        Productos
+                        Contacto
                       </Nav.Link>
                     </Nav>
                   </>
