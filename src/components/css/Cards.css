@@ -1,0 +1,17 @@
+.card-class{
+   width: 18rem;
+   display: flex;
+   margin: 20;
+}
+
+.card-class img{
+   height: 25vh;
+   object-fit: cover;
+}
+
+.title-class {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+

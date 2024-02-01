@@ -1,7 +1,7 @@
-import { Col, Container, Row } from 'react-bootstrap'
-import FooterC from '../components/FooterC'
-import { useEffect, useState } from "react"
-import CardsC from '../components/CardsC'
+import React, { useEffect, useState } from 'react'
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import CardsC from '../components/CardsC';
 
 const HomePage = () => {
 
@@ -17,8 +17,29 @@ const HomePage = () => {
     }, [])
 
 
-    return (
-        <>
+
+    const [estado, setEstado] = useState([])
+
+    const getProducts = async() => {
+        const produtsLS = JSON.parse(localStorage.getItem('products')) || []
+        if(produtsLS.length > 0){
+          setEstado(produtsLS)
+        }else{
+        const res = await fetch('https://fakestoreapi.com/products')
+        const data = await res.json()
+        localStorage.setItem('products', JSON.stringify(data))
+        setEstado(data)
+      }
+    }
+
+    
+
+    useEffect(() => {
+      getProducts()
+    }, [])
+    
+     return (
+     <>
             <div>HomePage</div>
             <Container>
                 <Row>
@@ -33,7 +54,7 @@ const HomePage = () => {
             </Container>
             <FooterC />
         </>
-    )
+    ) 
 }
 
 export default HomePage
