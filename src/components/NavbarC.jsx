@@ -138,6 +138,17 @@ const NavbarC = () => {
 
   }
 
+  const [palabraClave, setPalabraClave] = useState("")
+  
+  const handleChange = (ev) => {
+    setPalabraClave(ev.target.value)
+  }
+
+  const handleClick = (ev) => {
+    ev.preventDefault()
+    window.location=`/result/${palabraClave}`
+  }
+
   return (
     <>
       <Navbar expand="lg" className="cNavbar">
@@ -145,24 +156,27 @@ const NavbarC = () => {
           <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}>Logo</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+
+            
             {
               token && role === "user"
                 ?
                 <>
                   <Form>
-                    <Row className='jusify-content-center'>
-                      <Col xs="auto">
-                        <Form.Control
-                          type="text"
-                          placeholder="Por ej: caramelos"
-                          className=" mr-sm-2"
-                        />
-                      </Col>
-                      <Col xs="auto">
-                        <Button >Buscar</Button>
-                      </Col>
-                    </Row>
-                  </Form>
+              <Row className='jusify-content-center'>
+                <Col xs="auto">
+                  <Form.Control
+                    type="text"
+                    placeholder="Por ej: caramelos"
+                    className=" mr-sm-2"
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col xs="auto">
+                  <Button onClick={handleClick}>Buscar</Button>
+                </Col>
+              </Row>
+            </Form>
                   <Nav>
                     <Nav.Link href="#link">
                       Sobre Nosotros
@@ -234,6 +248,7 @@ const NavbarC = () => {
                   </Button>
                 </Nav>
             }
+
           </Navbar.Collapse>
         </Container>
       </Navbar>
