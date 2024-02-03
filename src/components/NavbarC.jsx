@@ -10,24 +10,38 @@ import "../components/css/NavbarC.css"
 import { useState, useEffect } from "react"
 import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
+import { useForm } from 'react-hook-form';
 
 
 const NavbarC = () => {
   const token = JSON.parse(sessionStorage.getItem("token"))
   const role = JSON.parse(sessionStorage.getItem("role"))
-
-  const singOff = (ev) => {
-    ev.preventDefault()
-    sessionStorage.removeItem("token") 
-    sessionStorage.removeItem("role")
-    location.href = "/"
-  }
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+
+
+  const { register, handleSubmit} = useForm();
+  const { formState: { errors } } = useForm();
+  const messagesR = {
+    req: "Este campo es obligatorio",
+    correo: "Debes introducir una dirección valida",
+    contrasenia: "Debes introducir una contraseña valida",
+    min:"El minimo de caracteres es de 8",
+    max:"Superaste el maximo de caracteres",
+  };
+  const patterns = { general: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ };
+
+  const singOff = (ev) => {
+    ev.preventDefault()
+    sessionStorage.removeItem("token")
+    sessionStorage.removeItem("role")
+    location.href = "/"
+  }
+
   const [formValuesR, setFormValuesR] = useState({
     correo: "",
     contrasenia: "",
@@ -73,25 +87,25 @@ const NavbarC = () => {
         sessionStorage.setItem("token", JSON.stringify(dataI.token))
         sessionStorage.setItem("role", JSON.stringify(dataI.role))
         location.href = "/user"
-      } else if(dataI.role === "admin"){
+      } else if (dataI.role === "admin") {
         sessionStorage.setItem("token", JSON.stringify(dataI.token))
         sessionStorage.setItem("role", JSON.stringify(dataI.role))
         location.href = "/admin"
-      }else{
-          Swal.fire({
-            title: "Oops...",
-            text: "No encontramos coincidencia con esos datos",
-            icon: "error",
-            confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+      } else {
+        Swal.fire({
+          title: "Oops...",
+          text: "No encontramos coincidencia con esos datos",
+          icon: "error",
+          confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
           </svg>`
-          });
+        });
       }
 
     }
   }
 
-  const handleChangeR  = (ev) => {
+  const handleChangeR = (ev) => {
     const { name, value } = ev.target
     setFormValuesR({ ...formValuesR, [name]: value })
   }
@@ -105,7 +119,7 @@ const NavbarC = () => {
       Swal.fire({
         title: "Oops...",
         text: "Algun campo esta vacio",
-        icon: "error", 
+        icon: "error",
         confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
       </svg>`
@@ -123,12 +137,12 @@ const NavbarC = () => {
           })
         })
 
-        const dataR = await sendFormRegister.json( )
+        const dataR = await sendFormRegister.json()
         if (dataR) {
           Swal.fire({
             title: "Se registro con exito",
             text: "Seras redirigido para iniciar sesion",
-            icon: "success", 
+            icon: "success",
           });
         }
       } else {
@@ -146,14 +160,14 @@ const NavbarC = () => {
   }
 
   const [palabraClave, setPalabraClave] = useState("")
-  
+
   const handleChange = (ev) => {
     setPalabraClave(ev.target.value)
   }
 
   const handleClick = (ev) => {
     ev.preventDefault()
-    window.location=`/result/${palabraClave}`
+    window.location = `/result/${palabraClave}`
   }
 
   return (
@@ -164,26 +178,26 @@ const NavbarC = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
 
-            
+
             {
               token && role === "user"
                 ?
                 <>
                   <Form>
-              <Row className='jusify-content-center'>
-                <Col xs="auto">
-                  <Form.Control
-                    type="text"
-                    placeholder="Por ej: caramelos"
-                    className=" mr-sm-2"
-                    onChange={handleChange}
-                  />
-                </Col>
-                <Col xs="auto">
-                  <Button onClick={handleClick}>Buscar</Button>
-                </Col>
-              </Row>
-            </Form>
+                    <Row className='jusify-content-center'>
+                      <Col xs="auto">
+                        <Form.Control
+                          type="text"
+                          placeholder="Por ej: caramelos"
+                          className=" mr-sm-2"
+                          onChange={handleChange}
+                        />
+                      </Col>
+                      <Col xs="auto">
+                        <Button onClick={handleClick}>Buscar</Button>
+                      </Col>
+                    </Row>
+                  </Form>
                   <Nav>
                     <Nav.Link href="#link">
                       Sobre Nosotros
@@ -268,11 +282,11 @@ const NavbarC = () => {
           <Form>
             <Form.Group>
               <Form.Label>Correo Electronico</Form.Label>
-              <Form.Control name="correo" type="email" placeholder='EJ: mail@mail.com' onChange={handleChangeI} value={formValuesI.correo} />
+              <Form.Control name="correo" type="email" placeholder='EJ: mail@mail.com' onChange={handleChangeI} value={formValuesI.correo} minLength={"8"} maxLength={"50"} />
             </Form.Group>
             <Form.Group>
               <Form.Label>Contraseña</Form.Label>
-              <Form.Control name="contrasenia" placeholder='Contraseña' type="password" className='mb-3' onChange={handleChangeI} value={formValuesI.contrasenia} />
+              <Form.Control name="contrasenia" placeholder='Contraseña' type="password" className='mb-3' onChange={handleChangeI} value={formValuesI.contrasenia} minLength={"8"} maxLength={"30"} />
             </Form.Group>
             <Button onClick={sendFormI}>Iniciar Sesion</Button>
           </Form>
@@ -288,17 +302,62 @@ const NavbarC = () => {
           <Form>
             <Form.Group>
               <Form.Label>Correo Electronico</Form.Label>
-              <Form.Control name="correo" placeholder='EJ: mail@mail.com' type="email" onChange={handleChangeR} value={formValuesR.correo} />
+              <Form.Control name="correo" placeholder='EJ: mail@mail.com' type="email" onChange={handleChangeR} value={formValuesR.correo} {...register("correo", {
+                required: messagesR.correo,
+                pattern: {
+                  value: patterns.general,
+                  message: messagesR.correo
+                },
+                minLength: {
+                  value: 8,
+                  message: messagesR.min
+                },
+                maxLength: {
+                  value: 50,
+                  message: messagesR.max
+                }
+              })} />
+              {errors.correo && (<Form.Text className="text-danger">
+              {errors.correo.message}
+            </Form.Text>)}
             </Form.Group>
             <Form.Group>
-              <Form.Label>Contraseña</Form.Label>
-              <Form.Control name="contrasenia" placeholder='Minimo 8 caracteres' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.contrasenia} />
+              <Form.Label htmlFor='contrasenia'>Contraseña</Form.Label>
+              <Form.Control name="contrasenia" placeholder='Minimo 8 caracteres' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.contrasenia} {...register("contrasenia", {
+                required: messagesR.contrasenia,
+                pattern: {
+                  value: patterns.general,
+                  message: messagesR.contrasenia
+                },
+                minLength: {
+                  value: 8,
+                  message: messagesR.min
+                },
+                maxLength: {
+                  value: 30,
+                  message: messagesR.max
+                }
+              })} />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Repetir Contraseña</Form.Label>
-              <Form.Control name="rcontrasenia" placeholder='Repetir contraseña' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.rcontrasenia} />
+              <Form.Label htmlFor='rcontrasenia'>Repetir Contraseña</Form.Label>
+              <Form.Control name="rcontrasenia" placeholder='Repetir contraseña' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.rcontrasenia} {...register("rcontrasenia", {
+                required: messagesR.contrasenia,
+                pattern: {
+                  value: patterns.general,
+                  message: messagesR.contrasenia
+                },
+                minLength: {
+                  value: 8,
+                  message: messagesR.min
+                },
+                maxLength: {
+                  value: 30,
+                  message: messagesR.max
+                }
+              })} />
             </Form.Group>
-            <Button onClick={sendFormR}>Registrate</Button>
+            <Button onClick={handleSubmit(sendFormR)}>Registrate</Button>
             <Form.Text id="errorCampoVacioR" className='text-danger'>
 
             </Form.Text>
@@ -306,7 +365,7 @@ const NavbarC = () => {
         </Modal.Body>
       </Modal>
     </>
-
+    
   )
 }
 

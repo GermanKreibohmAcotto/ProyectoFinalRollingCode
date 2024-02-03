@@ -6,6 +6,7 @@ import ContactPage from "../pages/contactPage"
 import ResultPage from "../pages/ResultPage"
 import ProductPage from "../pages/ProductPage"
 import { UserPage } from "../pages/UserPage"
+import FooterC from "../components/FooterC"
 
 const RoutesViews = () => {
     return (
@@ -17,11 +18,9 @@ const RoutesViews = () => {
                 <Route path="/contacto" element={<ContactPage/>}/>
                 <Route path="/user" element={<UserPage/>}/>
                 <Route path="/result/:res" element={<ResultPage/>}/>
-                
-                
-                
                 <Route path="*" element={<ErrorPage/>}/>
             </Routes>
+            <FooterC/>
         </>
     )
 }
