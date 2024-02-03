@@ -3,7 +3,6 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../components/css/FooterC.css'
 import ImgC from '../components/ImgC.jsx'
-import ReactDOM from 'react-dom'
 
 const FooterC = () => {
   return (
