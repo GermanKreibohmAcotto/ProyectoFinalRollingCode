@@ -203,10 +203,10 @@ const NavbarC = () => {
                   ?
                   <>
                     <Nav>
-                      <Nav.Link href="#link">
+                      <Nav.Link href="/UsersAdmin">
                         Usuarios
                       </Nav.Link>
-                      <Nav.Link href="#link">
+                      <Nav.Link href="/ProductsAdmin">
                         Productos
                       </Nav.Link>
                     </Nav>
