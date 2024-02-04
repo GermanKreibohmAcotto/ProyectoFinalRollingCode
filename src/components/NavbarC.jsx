@@ -10,6 +10,8 @@ import "../components/css/NavbarC.css"
 import { useState, useEffect } from "react"
 import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
+import clienteAxios from '../helpers/clientAxios';
+import { config } from '@fortawesome/fontawesome-svg-core';
 
 
 const NavbarC = () => {
@@ -18,7 +20,7 @@ const NavbarC = () => {
 
   const singOff = (ev) => {
     ev.preventDefault()
-    sessionStorage.removeItem("token") 
+    sessionStorage.removeItem("token")
     sessionStorage.removeItem("role")
     location.href = "/"
   }
@@ -44,10 +46,9 @@ const NavbarC = () => {
   }
 
   const sendFormI = async (ev) => {
+   try {
     ev.preventDefault()
     const { correo, contrasenia } = formValuesI
-    console.log(formValuesI)
-
     if (!correo || !contrasenia) {
       Swal.fire({
         title: "Oops...",
@@ -58,77 +59,69 @@ const NavbarC = () => {
       </svg>`
       });
     } else {
-      const sendFormLogin = await fetch('http://localhost:3002/api/users/login', {
-        method: "POST",
-        headers: {
-          "content-type": "application/json"
-        },
-        body: JSON.stringify({
+      const sendFormLogin = await clienteAxios.post('/users/login',
+        {
           correo: correo,
           contrasenia: contrasenia,
-        })
-      })
-      const dataI = await sendFormLogin.json()
-      if (dataI.role === "user") {
-        sessionStorage.setItem("token", JSON.stringify(dataI.token))
-        sessionStorage.setItem("role", JSON.stringify(dataI.role))
-        location.href = "/user"
-      } else if(dataI.role === "admin"){
-        sessionStorage.setItem("token", JSON.stringify(dataI.token))
-        sessionStorage.setItem("role", JSON.stringify(dataI.role))
-        location.href = "/admin"
-      }else{
-          Swal.fire({
-            title: "Oops...",
-            text: "No encontramos coincidencia con esos datos",
-            icon: "error",
-            confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+        }, config)
+
+      if (sendFormLogin.status === 200) {
+       
+        if (sendFormLogin.data.role === "user") {
+          sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
+          sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
+          location.href = "/user"
+        } else if (sendFormLogin.data.role === "admin") {
+          sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
+          sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
+          location.href = "/admin"
+        }
+      } 
+    }
+   } catch (error) {
+    if (error.response.status === 400) {
+      Swal.fire({
+        title: "Oops...",
+        text: "No encontramos coincidencia con esos datos",
+        icon: "error",
+        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
           </svg>`
-          });
-      }
-
-    }
+      });
+   }
   }
-
-  const handleChangeR  = (ev) => {
+  }
+  const handleChangeR = (ev) => {
     const { name, value } = ev.target
     setFormValuesR({ ...formValuesR, [name]: value })
   }
 
   const sendFormR = async (ev) => {
     ev.preventDefault()
-    console.log(formValuesR)
     const { correo, contrasenia, rcontrasenia } = formValuesR
 
     if (!correo || !contrasenia || !rcontrasenia) {
       Swal.fire({
         title: "Oops...",
         text: "Algun campo esta vacio",
-        icon: "error", 
+        icon: "error",
         confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
       </svg>`
       });
     } else {
       if (contrasenia === rcontrasenia) {
-        const sendFormRegister = await fetch('http://localhost:3002/api/users', {
-          method: "POST",
-          headers: {
-            "content-type": "application/json"
-          },
-          body: JSON.stringify({
-            correo: correo,
-            contrasenia: contrasenia,
-          })
-        })
+        const sendFormRegister = await clienteAxios.post('/users', {
+          correo: correo,
+          contrasenia: contrasenia,
+        }, config)
 
-        const dataR = await sendFormRegister.json( )
+        const dataR = await sendFormRegister.json()
         if (dataR) {
           Swal.fire({
             title: "Se registro con exito",
             text: "Seras redirigido para iniciar sesion",
-            icon: "success", 
+            icon: "success",
           });
         }
       } else {
@@ -146,14 +139,14 @@ const NavbarC = () => {
   }
 
   const [palabraClave, setPalabraClave] = useState("")
-  
+
   const handleChange = (ev) => {
     setPalabraClave(ev.target.value)
   }
 
   const handleClick = (ev) => {
     ev.preventDefault()
-    window.location=`/result/${palabraClave}`
+    window.location = `/result/${palabraClave}`
   }
 
   return (
@@ -164,26 +157,26 @@ const NavbarC = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
 
-            
+
             {
               token && role === "user"
                 ?
                 <>
                   <Form>
-              <Row className='jusify-content-center'>
-                <Col xs="auto">
-                  <Form.Control
-                    type="text"
-                    placeholder="Por ej: caramelos"
-                    className=" mr-sm-2"
-                    onChange={handleChange}
-                  />
-                </Col>
-                <Col xs="auto">
-                  <Button onClick={handleClick}>Buscar</Button>
-                </Col>
-              </Row>
-            </Form>
+                    <Row className='jusify-content-center'>
+                      <Col xs="auto">
+                        <Form.Control
+                          type="text"
+                          placeholder="Por ej: caramelos"
+                          className=" mr-sm-2"
+                          onChange={handleChange}
+                        />
+                      </Col>
+                      <Col xs="auto">
+                        <Button onClick={handleClick}>Buscar</Button>
+                      </Col>
+                    </Row>
+                  </Form>
                   <Nav>
                     <Nav.Link href="#link">
                       Sobre Nosotros
@@ -203,10 +196,10 @@ const NavbarC = () => {
                   ?
                   <>
                     <Nav>
-                      <Nav.Link href="/UsersAdmin">
+                      <Nav.Link href="/usersAdmin">
                         Usuarios
                       </Nav.Link>
-                      <Nav.Link href="/ProductsAdmin">
+                      <Nav.Link href="/productsAdmin">
                         Productos
                       </Nav.Link>
                     </Nav>

@@ -3,6 +3,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import FooterC from '../components/FooterC';
+import clienteAxios from '../helpers/clientAxios';
 
 const ProductPage = () => {
 
@@ -12,9 +13,8 @@ const ProductPage = () => {
 
 
     const getOneProduct = async () => {
-        const getProduct = await fetch(`http://localhost:3002/api/products/${params.id}`)
-        const data = await getProduct.json()
-        setProduct(data.getProduct)
+        const data = await clienteAxios.get(`/products/${params.id}`)
+        setProduct(data.data.getProduct)
     }
 
     const addProdCart = () => {
