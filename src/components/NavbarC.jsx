@@ -10,7 +10,7 @@ import "../components/css/NavbarC.css"
 import { useState, useEffect } from "react"
 import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
-import { useForm } from 'react-hook-form';
+import * as Yup from "yup";
 
 
 const NavbarC = () => {
@@ -22,19 +22,6 @@ const NavbarC = () => {
   const handleShow = () => setShow(true);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
-
-
-  const { register, handleSubmit} = useForm();
-  const { formState: { errors } } = useForm();
-  const messagesR = {
-    req: "Este campo es obligatorio",
-    correo: "Debes introducir una dirección valida",
-    contrasenia: "Debes introducir una contraseña valida",
-    min:"El minimo de caracteres es de 8",
-    max:"Superaste el maximo de caracteres",
-  };
-  const patterns = { general: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ };
-
   const singOff = (ev) => {
     ev.preventDefault()
     sessionStorage.removeItem("token")
@@ -114,7 +101,18 @@ const NavbarC = () => {
     ev.preventDefault()
     console.log(formValuesR)
     const { correo, contrasenia, rcontrasenia } = formValuesR
-
+    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correo)
+    if (regex == false) {
+      console.log("hola")
+      Swal.fire({
+        title: "Oops...",
+        text: "Formato incorrecto del correo electronico",
+        icon: "error",
+        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+      </svg>`
+      });
+    }
     if (!correo || !contrasenia || !rcontrasenia) {
       Swal.fire({
         title: "Oops...",
@@ -136,6 +134,7 @@ const NavbarC = () => {
             contrasenia: contrasenia,
           })
         })
+
 
         const dataR = await sendFormRegister.json()
         if (dataR) {
@@ -302,62 +301,20 @@ const NavbarC = () => {
           <Form>
             <Form.Group>
               <Form.Label>Correo Electronico</Form.Label>
-              <Form.Control name="correo" placeholder='EJ: mail@mail.com' type="email" onChange={handleChangeR} value={formValuesR.correo} {...register("correo", {
-                required: messagesR.correo,
-                pattern: {
-                  value: patterns.general,
-                  message: messagesR.correo
-                },
-                minLength: {
-                  value: 8,
-                  message: messagesR.min
-                },
-                maxLength: {
-                  value: 50,
-                  message: messagesR.max
-                }
-              })} />
-              {errors.correo && (<Form.Text className="text-danger">
-              {errors.correo.message}
-            </Form.Text>)}
+              <Form.Control name="correo" placeholder='EJ: mail@mail.com' type="email" onChange={handleChangeR} value={formValuesR.correo} minLength={"8"} maxLength={"50"} />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Contraseña</Form.Label>
+              <Form.Control name="contrasenia" placeholder='Minimo 8 caracteres' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.contrasenia} minLength={"8"} maxLength={"30"} />
+
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor='contrasenia'>Contraseña</Form.Label>
-              <Form.Control name="contrasenia" placeholder='Minimo 8 caracteres' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.contrasenia} {...register("contrasenia", {
-                required: messagesR.contrasenia,
-                pattern: {
-                  value: patterns.general,
-                  message: messagesR.contrasenia
-                },
-                minLength: {
-                  value: 8,
-                  message: messagesR.min
-                },
-                maxLength: {
-                  value: 30,
-                  message: messagesR.max
-                }
-              })} />
+              <Form.Label>Repetir Contraseña</Form.Label>
+              <Form.Control name="rcontrasenia" placeholder='Repetir contraseña' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.rcontrasenia} minLength={"8"} maxLength={"30"} />
+
             </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor='rcontrasenia'>Repetir Contraseña</Form.Label>
-              <Form.Control name="rcontrasenia" placeholder='Repetir contraseña' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.rcontrasenia} {...register("rcontrasenia", {
-                required: messagesR.contrasenia,
-                pattern: {
-                  value: patterns.general,
-                  message: messagesR.contrasenia
-                },
-                minLength: {
-                  value: 8,
-                  message: messagesR.min
-                },
-                maxLength: {
-                  value: 30,
-                  message: messagesR.max
-                }
-              })} />
-            </Form.Group>
-            <Button onClick={handleSubmit(sendFormR)}>Registrate</Button>
+            <Button onClick={sendFormR}>Registrate</Button>
             <Form.Text id="errorCampoVacioR" className='text-danger'>
 
             </Form.Text>
@@ -365,7 +322,7 @@ const NavbarC = () => {
         </Modal.Body>
       </Modal>
     </>
-    
+
   )
 }
 
