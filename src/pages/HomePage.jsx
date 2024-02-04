@@ -36,7 +36,6 @@ const HomePage = () => {
                     }
                 </Row>
             </Container>
-            <FooterC />
         </>
     ) 
 }
