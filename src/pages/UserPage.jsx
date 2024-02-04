@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import CardsC from '../components/CardsC'
+import clienteAxios from '../helpers/clientAxios'
 
 export const UserPage = () => {
 
@@ -8,9 +9,12 @@ export const UserPage = () => {
   const [products, setProducts] = useState([])
 
   const getAllProducts = async () => {
-    const getProducts = await fetch('http://localhost:3002/api/products')
-    const data = await getProducts.json()
-    setProducts(data.getAllProducts)
+    try {
+      const getProducts = await clienteAxios.get('/products')
+      setProducts(getProducts.data.getAllProducts)
+  } catch (error) {
+      console.log(error)
+  }
 }
 useEffect(() => {
     getAllProducts()
@@ -23,7 +27,7 @@ useEffect(() => {
                     {
                         products.map((product) =>
                             <Col sm={12} md={6} lg={4} key={product._id}>
-                                <CardsC url={product.image} titulo={product.titulo} descripcion={product.descripcion} precio={product.precio} idProduct={product._id} />
+                                <CardsC imagen={product.imagen} titulo={product.titulo} descripcion={product.descripcion} precio={product.precio} idProduct={product._id} />
                             </Col>
                         )
                     }

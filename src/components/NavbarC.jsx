@@ -10,12 +10,19 @@ import "../components/css/NavbarC.css"
 import { useState, useEffect } from "react"
 import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
-import * as Yup from "yup";
+import clienteAxios from '../helpers/clientAxios';
+import { config } from '@fortawesome/fontawesome-svg-core';
 
 
 const NavbarC = () => {
   const token = JSON.parse(sessionStorage.getItem("token"))
   const role = JSON.parse(sessionStorage.getItem("role"))
+  const singOff = (ev) => {
+    ev.preventDefault()
+    sessionStorage.removeItem("token")
+    sessionStorage.removeItem("role")
+    location.href = "/"
+  }
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const handleClose = () => setShow(false);
@@ -45,10 +52,9 @@ const NavbarC = () => {
   }
 
   const sendFormI = async (ev) => {
+   try {
     ev.preventDefault()
     const { correo, contrasenia } = formValuesI
-    console.log(formValuesI)
-
     if (!correo || !contrasenia) {
       Swal.fire({
         title: "Oops...",
@@ -59,12 +65,8 @@ const NavbarC = () => {
       </svg>`
       });
     } else {
-      const sendFormLogin = await fetch('http://localhost:3002/api/users/login', {
-        method: "POST",
-        headers: {
-          "content-type": "application/json"
-        },
-        body: JSON.stringify({
+      const sendFormLogin = await clienteAxios.post('/users/login',
+        {
           correo: correo,
           contrasenia: contrasenia,
         })
@@ -88,8 +90,33 @@ const NavbarC = () => {
           </svg>`
         });
       }
+        }, config)
 
+      if (sendFormLogin.status === 200) {
+       
+        if (sendFormLogin.data.role === "user") {
+          sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
+          sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
+          location.href = "/user"
+        } else if (sendFormLogin.data.role === "admin") {
+          sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
+          sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
+          location.href = "/admin"
+        }
+      } 
     }
+   } catch (error) {
+    if (error.response.status === 400) {
+      Swal.fire({
+        title: "Oops...",
+        text: "No encontramos coincidencia con esos datos",
+        icon: "error",
+        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+          </svg>`
+      });
+   }
+  }
   }
 
   const handleChangeR = (ev) => {
@@ -99,7 +126,6 @@ const NavbarC = () => {
 
   const sendFormR = async (ev) => {
     ev.preventDefault()
-    console.log(formValuesR)
     const { correo, contrasenia, rcontrasenia } = formValuesR
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correo)
     if (regex == false) {
@@ -124,18 +150,10 @@ const NavbarC = () => {
       });
     } else {
       if (contrasenia === rcontrasenia) {
-        const sendFormRegister = await fetch('http://localhost:3002/api/users', {
-          method: "POST",
-          headers: {
-            "content-type": "application/json"
-          },
-          body: JSON.stringify({
-            correo: correo,
-            contrasenia: contrasenia,
-          })
-        })
-
-
+        const sendFormRegister = await clienteAxios.post('/users', {
+          correo: correo,
+          contrasenia: contrasenia,
+        }, config)
         const dataR = await sendFormRegister.json()
         if (dataR) {
           Swal.fire({
@@ -216,10 +234,10 @@ const NavbarC = () => {
                   ?
                   <>
                     <Nav>
-                      <Nav.Link href="#link">
+                      <Nav.Link href="/usersAdmin">
                         Usuarios
                       </Nav.Link>
-                      <Nav.Link href="#link">
+                      <Nav.Link href="/productsAdmin">
                         Productos
                       </Nav.Link>
                     </Nav>

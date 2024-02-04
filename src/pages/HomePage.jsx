@@ -4,15 +4,19 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import FooterC from '../components/FooterC';
+import clienteAxios from '../helpers/clientAxios';
 
 const HomePage = () => {
 
     const [products, setProducts] = useState([])
 
     const getAllProducts = async () => {
-        const getProducts = await fetch('http://localhost:3002/api/products')
-        const data = await getProducts.json()
-        setProducts(data.getAllProducts)
+        try {
+            const getProducts = await clienteAxios.get('/products')
+            setProducts(getProducts.data.getAllProducts)
+        } catch (error) {
+            console.log(error)
+        }
     }
     useEffect(() => {
         getAllProducts()
