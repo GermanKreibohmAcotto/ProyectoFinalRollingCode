@@ -1,4 +1,3 @@
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -17,6 +16,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 const NavbarC = () => {
   const token = JSON.parse(sessionStorage.getItem("token"))
   const role = JSON.parse(sessionStorage.getItem("role"))
+
   const singOff = (ev) => {
     ev.preventDefault()
     sessionStorage.removeItem("token")
@@ -29,13 +29,6 @@ const NavbarC = () => {
   const handleShow = () => setShow(true);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
-  const singOff = (ev) => {
-    ev.preventDefault()
-    sessionStorage.removeItem("token")
-    sessionStorage.removeItem("role")
-    location.href = "/"
-  }
-
   const [formValuesR, setFormValuesR] = useState({
     correo: "",
     contrasenia: "",
@@ -69,27 +62,6 @@ const NavbarC = () => {
         {
           correo: correo,
           contrasenia: contrasenia,
-        })
-      })
-      const dataI = await sendFormLogin.json()
-      if (dataI.role === "user") {
-        sessionStorage.setItem("token", JSON.stringify(dataI.token))
-        sessionStorage.setItem("role", JSON.stringify(dataI.role))
-        location.href = "/user"
-      } else if (dataI.role === "admin") {
-        sessionStorage.setItem("token", JSON.stringify(dataI.token))
-        sessionStorage.setItem("role", JSON.stringify(dataI.role))
-        location.href = "/admin"
-      } else {
-        Swal.fire({
-          title: "Oops...",
-          text: "No encontramos coincidencia con esos datos",
-          icon: "error",
-          confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-          </svg>`
-        });
-      }
         }, config)
 
       if (sendFormLogin.status === 200) {
@@ -118,7 +90,6 @@ const NavbarC = () => {
    }
   }
   }
-
   const handleChangeR = (ev) => {
     const { name, value } = ev.target
     setFormValuesR({ ...formValuesR, [name]: value })
@@ -128,17 +99,16 @@ const NavbarC = () => {
     ev.preventDefault()
     const { correo, contrasenia, rcontrasenia } = formValuesR
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correo)
-    if (regex == false) {
-      console.log("hola")
-      Swal.fire({
-        title: "Oops...",
-        text: "Formato incorrecto del correo electronico",
-        icon: "error",
-        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+  if (regex == false) {
+    Swal.fire({
+      title: "Oops...",
+      text: "Formato incorrecto del correo electronico",
+      icon: "error",
+      confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
       </svg>`
-      });
-    }
+    })}
+
     if (!correo || !contrasenia || !rcontrasenia) {
       Swal.fire({
         title: "Oops...",
@@ -154,6 +124,7 @@ const NavbarC = () => {
           correo: correo,
           contrasenia: contrasenia,
         }, config)
+
         const dataR = await sendFormRegister.json()
         if (dataR) {
           Swal.fire({
@@ -299,11 +270,11 @@ const NavbarC = () => {
           <Form>
             <Form.Group>
               <Form.Label>Correo Electronico</Form.Label>
-              <Form.Control name="correo" type="email" placeholder='EJ: mail@mail.com' onChange={handleChangeI} value={formValuesI.correo} minLength={"8"} maxLength={"50"} />
+              <Form.Control name="correo" type="email" placeholder='EJ: mail@mail.com' onChange={handleChangeI} value={formValuesI.correo} />
             </Form.Group>
             <Form.Group>
               <Form.Label>Contraseña</Form.Label>
-              <Form.Control name="contrasenia" placeholder='Contraseña' type="password" className='mb-3' onChange={handleChangeI} value={formValuesI.contrasenia} minLength={"8"} maxLength={"30"} />
+              <Form.Control name="contrasenia" placeholder='Contraseña' type="password" className='mb-3' onChange={handleChangeI} value={formValuesI.contrasenia} />
             </Form.Group>
             <Button onClick={sendFormI}>Iniciar Sesion</Button>
           </Form>
@@ -319,18 +290,15 @@ const NavbarC = () => {
           <Form>
             <Form.Group>
               <Form.Label>Correo Electronico</Form.Label>
-              <Form.Control name="correo" placeholder='EJ: mail@mail.com' type="email" onChange={handleChangeR} value={formValuesR.correo} minLength={"8"} maxLength={"50"} />
+              <Form.Control name="correo" placeholder='EJ: mail@mail.com' type="email" onChange={handleChangeR} value={formValuesR.correo} />
             </Form.Group>
-
             <Form.Group>
               <Form.Label>Contraseña</Form.Label>
-              <Form.Control name="contrasenia" placeholder='Minimo 8 caracteres' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.contrasenia} minLength={"8"} maxLength={"30"} />
-
+              <Form.Control name="contrasenia" placeholder='Minimo 8 caracteres' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.contrasenia} />
             </Form.Group>
             <Form.Group>
               <Form.Label>Repetir Contraseña</Form.Label>
-              <Form.Control name="rcontrasenia" placeholder='Repetir contraseña' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.rcontrasenia} minLength={"8"} maxLength={"30"} />
-
+              <Form.Control name="rcontrasenia" placeholder='Repetir contraseña' type="password" className='mb-3' onChange={handleChangeR} value={formValuesR.rcontrasenia} />
             </Form.Group>
             <Button onClick={sendFormR}>Registrate</Button>
             <Form.Text id="errorCampoVacioR" className='text-danger'>
