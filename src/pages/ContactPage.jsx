@@ -28,7 +28,6 @@ const contactPage = () => {
         const serviceId = "service_erbrlnj"
         const templateId = "template_gjt8zq2"
         const apikey = "z89ogi_VH85JYCCJ_"
-        console.log("ok")
         emailjs.sendForm(serviceId, templateId, refForm.current, apikey)
             .then(result => console.log(result.text))
             .catch(error => console.error(error))

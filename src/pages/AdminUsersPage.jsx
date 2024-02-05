@@ -24,7 +24,14 @@ const AdminUsersPage = () => {
       const getUsers = await clienteAxios.get('/users')
       setUsers(getUsers.data.getAllUsers)
     } catch (error) {
-      console.log(error)
+      Swal.fire({
+        title: "Oops...",
+        text: "Surgio algun error en la obtencion de los usuarios",
+        icon: "error",
+        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+  </svg>`
+      });
     }
   }
 
@@ -46,7 +53,14 @@ const AdminUsersPage = () => {
         });
       }
     } catch (error) {
-      console.log(error)
+      Swal.fire({
+        title: "Oops...",
+        text: "Surgio algun error en la actualizacion del usuario",
+        icon: "error",
+        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+  </svg>`
+      });
     }
   }
 
@@ -57,18 +71,19 @@ const AdminUsersPage = () => {
 
 
   const deleteUser = (idUser) => {
-    Swal.fire({
-      title: "Seguro que quieres eliminarlo?",
-      text: "La eliminacion sera definitiva!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Eliminar!",
-      cancelButtonText: "Conservar usuario!"
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
+    try {
+      Swal.fire({
+        title: "Seguro que quieres eliminarlo?",
+        text: "La eliminacion sera definitiva!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Eliminar!",
+        cancelButtonText: "Conservar usuario!"
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+
           const deleteUser = await clienteAxios.delete(`/users/${idUser}`, config)
 
           if (deleteUser.status === 200) {
@@ -76,13 +91,20 @@ const AdminUsersPage = () => {
               title: "Eliminado!",
               text: "El usuario fue eliminado definitivamente",
               icon: "success"
-            });
+            })
           }
-        } catch (error) {
-          console.log(error)
         }
-      }
-    });
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Oops...",
+        text: "Surgio algun error en la eliminacion del usuario",
+        icon: "error",
+        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+      </svg>`
+      });
+    }
   }
   return (
     <>
