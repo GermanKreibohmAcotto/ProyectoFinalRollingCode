@@ -6,6 +6,7 @@ import ContactPage from "../pages/contactPage"
 import ResultPage from "../pages/ResultPage"
 import ProductPage from "../pages/ProductPage"
 import { UserPage } from "../pages/UserPage"
+import FooterC from "../components/FooterC"
 import AdminProductPage from "../pages/AdminProductPage"
 import AdminUsersPage from "../pages/AdminUsersPage"
 import AdminPage from "../pages/AdminPage"
@@ -23,11 +24,9 @@ const RoutesViews = () => {
                 <Route path="/usersAdmin" element={<AdminUsersPage/>}/>
                 <Route path="/productsAdmin" element={<AdminProductPage/>}/>
                 <Route path="/result/:res" element={<ResultPage/>}/>
-                
-                
-                
                 <Route path="*" element={<ErrorPage/>}/>
             </Routes>
+            <FooterC/>
         </>
     )
 }
