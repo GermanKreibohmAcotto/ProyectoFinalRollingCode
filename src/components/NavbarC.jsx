@@ -98,13 +98,11 @@ const NavbarC = () => {
   }
 
   const sendFormR = async (ev) => {
-<<<<<<< HEAD
     try {
       ev.preventDefault()
       const { correo, contrasenia, rcontrasenia } = formValuesR
   
       if (!correo || !contrasenia || !rcontrasenia) {
-=======
     ev.preventDefault()
     const { correo, contrasenia, rcontrasenia } = formValuesR
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correo)
@@ -144,7 +142,6 @@ const NavbarC = () => {
           });
         }
       } else {
->>>>>>> 40580571a80a17c32eb451789197a11faef9adbf
         Swal.fire({
           title: "Oops...",
           text: "Algun campo esta vacio",
@@ -153,7 +150,7 @@ const NavbarC = () => {
           <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
         </svg>`
         });
-      } else {
+      }
         if (contrasenia === rcontrasenia) {
           const sendFormRegister = await clienteAxios.post('/users', {
             correo: correo,
@@ -180,8 +177,7 @@ const NavbarC = () => {
           });
         }
       }
-  
-  } catch (error) {
+    }} catch (error) {
     Swal.fire({
       title: "Oops...",
       text: "Hubo un error en la creacion de tu usuario",
