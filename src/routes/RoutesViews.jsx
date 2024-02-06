@@ -10,6 +10,7 @@ import FooterC from "../components/FooterC"
 import AdminProductPage from "../pages/AdminProductPage"
 import AdminUsersPage from "../pages/AdminUsersPage"
 import AdminPage from "../pages/AdminPage"
+import { AdminImagesPage } from "../pages/AdminImagesPage"
 import CartPage from "../pages/CartPage"
 import FavoritesPage from "../pages/FavoritesPage"
 
