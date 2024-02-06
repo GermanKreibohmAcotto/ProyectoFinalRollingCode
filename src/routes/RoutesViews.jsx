@@ -10,12 +10,9 @@ import FooterC from "../components/FooterC"
 import AdminProductPage from "../pages/AdminProductPage"
 import AdminUsersPage from "../pages/AdminUsersPage"
 import AdminPage from "../pages/AdminPage"
-<<<<<<< HEAD
 import { AdminImagesPage } from "../pages/AdminImagesPage"
-=======
 import CartPage from "../pages/CartPage"
 import FavoritesPage from "../pages/FavoritesPage"
->>>>>>> 51159398d391ff719c6a6ef6d30e38dd6c80b310
 
 const RoutesViews = () => {
     return (

@@ -198,11 +198,6 @@ useEffect(() => {
     <>
       <Navbar expand="lg" className="cNavbar">
         <Container fluid>
-        {
-                        images?.map((image) =>
-                                    <img src={image.imagen} width={'50'} />
-                        )
-                    }
           <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}>Logo</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
