@@ -10,6 +10,7 @@ import { useState, useEffect } from "react"
 import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
 import clienteAxios, { config } from '../helpers/clientAxios';
+import ImgC from './ImgC';
 
 const NavbarC = () => {
   const [images, setImages] = useState([]);
@@ -198,7 +199,7 @@ useEffect(() => {
     <>
       <Navbar expand="lg" className="cNavbar">
         <Container fluid>
-          <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}>Logo</Navbar.Brand>
+          <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707176096/wgbnztfg9lzpk6nsy4pz.png'} width={'150'}/></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
 

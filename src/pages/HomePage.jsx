@@ -5,6 +5,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import clienteAxios from '../helpers/clientAxios';
 import Swal from 'sweetalert2';
+import ImgC from '../components/ImgC';
+import Carousel from 'react-bootstrap/Carousel';
+import CategorieBox from '../components/CategorieBox';
+import '../components/css/Carrusel.css'
 
 const HomePage = () => {
 
@@ -31,12 +35,13 @@ const HomePage = () => {
 
     return (
         <>
-            <div>HomePage</div>
-            <Container>
+            <ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707251741/tinywow_WhatsApp_Image_2024-02-06_at_5.30.23_PM_47109736_kc9nsx.jpg'} width={'100%'} />
+
+            <Container >
                 <Row>
                     {
                         products?.map((product) =>
-                            <Col sm={12} md={6} lg={4} key={product._id}>
+                            <Col sm={12} md={6} lg={3} key={product._id} >
                                 <CardsC imagen={product.imagen} titulo={product.titulo} descripcion={product.descripcion} precio={product.precio} idProduct={product._id} />
                             </Col>
                         )
