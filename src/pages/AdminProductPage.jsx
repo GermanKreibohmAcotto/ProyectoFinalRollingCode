@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Swal from 'sweetalert2';
 import clienteAxios, { config } from '../helpers/clientAxios';
+import { number } from 'yup';
 
 
 const AdminProductPage = () => {
@@ -19,7 +20,7 @@ const AdminProductPage = () => {
         descripcion: '',
         codigo: '',
     })
-    
+
     const [imagen, setImagen] = useState({})
 
     const [show1, setShow1] = useState(false);
@@ -32,7 +33,7 @@ const AdminProductPage = () => {
     }
 
     const handleChangeImg = (ev) => {
-        setImagen({ ...imagen, [ev.target.name]: ev.target.files[0] })
+        setImagen(ev.target.files[0])
     }
 
     const handleClick1 = async (ev) => {
@@ -50,12 +51,16 @@ const AdminProductPage = () => {
                 });
             } else {
 
+              
                 const data = new FormData()
+                data.append('titulo', newProduct.titulo)
+                data.append('codigo', newProduct.codigo)
+                data.append('precio', newProduct.precio )
+                data.append('descripcion', newProduct.descripcion)
                 data.append('imagen', imagen)
-
-                const addImgProd = { ...newProduct, data }
-                const createProd = await clienteAxios.post('/products', addImgProd, config)
-                if(createProd){
+            
+                const createProd = await clienteAxios.post('/products', data, config)
+                if (createProd) {
                     Swal.fire({
                         title: "Creado con exito",
                         icon: "success",
@@ -63,6 +68,7 @@ const AdminProductPage = () => {
                 }
             }
         } catch (error) {
+          
             Swal.fire({
                 title: "Oops...",
                 text: "Surgio algun error en la creacion del producto",
@@ -98,7 +104,7 @@ const AdminProductPage = () => {
           </svg>`
             });
         }
-        
+
     }
 
     useEffect(() => {
@@ -110,9 +116,16 @@ const AdminProductPage = () => {
     }
     const handleClick = async (ev) => {
         try {
-
             ev.preventDefault()
-            const updateProduct = await clienteAxios.put(`/products/${productState._id}`, productState, config)
+
+            const formData = new FormData()
+            formData.append('titulo', productState.titulo)
+            formData.append('codigo', productState.codigo)
+            formData.append('precio', productState.precio)
+            formData.append('descripcion', productState.descripcion)
+            formData.append('imagen', imagen)
+
+            const updateProduct = await clienteAxios.put(`/products/${productState._id}`, formData, config)
 
             if (updateProduct.status === 200) {
                 handleClose()
