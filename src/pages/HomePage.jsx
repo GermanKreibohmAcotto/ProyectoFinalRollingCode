@@ -6,9 +6,6 @@ import Col from 'react-bootstrap/Col';
 import clienteAxios from '../helpers/clientAxios';
 import Swal from 'sweetalert2';
 import ImgC from '../components/ImgC';
-import Carousel from 'react-bootstrap/Carousel';
-import CategorieBox from '../components/CategorieBox';
-import '../components/css/Carrusel.css'
 
 const HomePage = () => {
 
