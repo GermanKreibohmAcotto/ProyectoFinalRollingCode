@@ -27,7 +27,7 @@ const RoutesViews = () => {
                 <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/fav" element={<FavoritesPage/>}/>
                 <Route path="/admin" element={<AdminPage/>}/>
-                <Route path="/usersAdmin" element={<AdminUsersPage/>}/>
+                 <Route path="/usersAdmin" element={<AdminUsersPage/>}/>
                 <Route path="/imagesAdmin" element={<AdminImagesPage/>}/>
                 <Route path="/productsAdmin" element={<AdminProductPage/>}/>
                 <Route path="/result/:res" element={<ResultPage/>}/>
