@@ -8,15 +8,18 @@ import clienteAxios, { config } from '../helpers/clientAxios';
 
 
 const AdminProductPage = () => {
+
     const [products, setProducts] = useState([]);
     const [show, setShow] = useState(false);
     const [productState, setProductState] = useState({});
+
     const [newProduct, setNewProduct] = useState({
         titulo: '',
         precio: '',
         descripcion: '',
         codigo: '',
     })
+    
     const [imagen, setImagen] = useState({})
 
     const [show1, setShow1] = useState(false);
@@ -27,14 +30,16 @@ const AdminProductPage = () => {
     const handleChange1 = (ev) => {
         setNewProduct({ ...newProduct, [ev.target.name]: ev.target.value })
     }
+
     const handleChangeImg = (ev) => {
         setImagen({ ...imagen, [ev.target.name]: ev.target.files[0] })
     }
+
     const handleClick1 = async (ev) => {
         try {
             ev.preventDefault()
             const { titulo, codigo, precio, descripcion } = newProduct
-            if (!titulo || !precio || !codigo || !descripcion || !imagen) {
+            if (!titulo || !precio || !codigo || !descripcion) {
                 Swal.fire({
                     title: "Oops...",
                     text: "Algun campo esta vacio",
@@ -50,6 +55,12 @@ const AdminProductPage = () => {
 
                 const addImgProd = { ...newProduct, data }
                 const createProd = await clienteAxios.post('/products', addImgProd, config)
+                if(createProd){
+                    Swal.fire({
+                        title: "Creado con exito",
+                        icon: "success",
+                    });
+                }
             }
         } catch (error) {
             Swal.fire({
@@ -72,9 +83,12 @@ const AdminProductPage = () => {
 
     const getAllProducts = async () => {
         try {
+
             const getProducts = await clienteAxios.get('/products')
             setProducts(getProducts.data.getAllProducts)
+
         } catch (error) {
+
             Swal.fire({
                 title: "Oops...",
                 text: "Surgio algun error en la obtecion de productos",
@@ -84,6 +98,7 @@ const AdminProductPage = () => {
           </svg>`
             });
         }
+        
     }
 
     useEffect(() => {
@@ -107,6 +122,7 @@ const AdminProductPage = () => {
                 });
             }
         } catch (error) {
+            console.log(error)
             Swal.fire({
                 title: "Oops...",
                 text: "Surgio algun error en la actualizacion",
@@ -133,7 +149,7 @@ const AdminProductPage = () => {
                 if (result.isConfirmed) {
 
                     const deleteProduct = await clienteAxios.delete(`/products/${idProduct}`, config)
-                    if (deleteProduct.status === 20) {
+                    if (deleteProduct.status === 200) {
                         Swal.fire({
                             title: "Eliminado!",
                             text: "El producto fue eliminado definitivamente",
@@ -258,7 +274,7 @@ const AdminProductPage = () => {
 
                                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                                     <Form.Label>Imagen</Form.Label>
-                                                    <Form.Control type="text" value={productState.imagen} onChange={handleChange} name='imagen' />
+                                                    <Form.Control type="file" onChange={handleChange} name='imagen' />
                                                 </Form.Group>
 
                                                 <Button variant="primary" type="submit" onClick={handleClick}>

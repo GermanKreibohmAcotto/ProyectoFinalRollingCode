@@ -82,7 +82,6 @@ const ProductPage = () => {
                 </Col>
             </Row>
         </Container>
-        <FooterC/>
         </>
     )
 }
