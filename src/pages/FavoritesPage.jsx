@@ -7,7 +7,7 @@ const FavoritesPage = () => {
 
   const getAllProductsFav = async () => {
     try {
-      const idUsuario = JSON.parse(sessionStorage.getItem('isUsuario'))
+      const idUsuario = JSON.parse(sessionStorage.getItem('idUsuario'))
       const dataUser = await clienteAxios.get(`/users/${idUsuario}`)
 
       if(dataUser.status === 200){

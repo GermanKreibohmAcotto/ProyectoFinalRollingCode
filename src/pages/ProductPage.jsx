@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import FooterC from '../components/FooterC';
 import clienteAxios from '../helpers/clientAxios';
 
 const ProductPage = () => {
@@ -28,7 +27,7 @@ const ProductPage = () => {
     }
     }
 
-    const addProdCart = async () => {
+    const addProdCart = async() => {
         try {
             if (!token) {
                 Swal.fire({
@@ -37,7 +36,7 @@ const ProductPage = () => {
                     text: "Debes iniciar sesion para continuar",
                 });
             } else {
-                const idUsuario = JSON.parse(sessionStorage.getItem('isUsuario'))
+                const idUsuario = JSON.parse(sessionStorage.getItem('idUsuario'))
                 const dataUser = await clienteAxios.get(`/users/${idUsuario}`)
     
                 if (dataUser.status === 200) {
@@ -74,7 +73,7 @@ const ProductPage = () => {
                     text: "Debes iniciar sesion para continuar",
                 });
             } else {
-                const idUsuario = JSON.parse(sessionStorage.getItem('isUsuario'))
+                const idUsuario = JSON.parse(sessionStorage.getItem('idUsuario'))
                 const dataUser = await clienteAxios.get(`/users/${idUsuario}`)
     
                 if (dataUser.status === 200) {
@@ -122,7 +121,6 @@ const ProductPage = () => {
                     </Col>
                 </Row>
             </Container>
-            <FooterC />
         </>
     )
 }
