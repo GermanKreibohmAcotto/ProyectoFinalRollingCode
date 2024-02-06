@@ -11,7 +11,6 @@ import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
 import clienteAxios, { config } from '../helpers/clientAxios';
 
-
 const NavbarC = () => {
   const [images, setImages] = useState([]);
 
@@ -70,10 +69,12 @@ const NavbarC = () => {
           if (sendFormLogin.data.role === "user") {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
+            sessionStorage.setItem("idUsuario", JSON.stringify(sendFormLogin.data.idUsuario))
             location.href = "/user"
           } else if (sendFormLogin.data.role === "admin") {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
+            sessionStorage.setItem("idUsuario", JSON.stringify(sendFormLogin.data.idUsuario))
             location.href = "/admin"
           }
         }
@@ -82,7 +83,7 @@ const NavbarC = () => {
       if (error.response.status === 400) {
         Swal.fire({
           title: "Oops...",
-          text: "Mail y/o contraseña incorrectos!",
+          text: "No encontramos coincidencia con esos datos",
           icon: "error",
           confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
@@ -98,19 +99,19 @@ const NavbarC = () => {
 
   const sendFormR = async (ev) => {
     try {
-      ev.preventDefault()
-      const { correo, contrasenia, rcontrasenia } = formValuesR
-      const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correo)
-      if (regex == false) {
-        Swal.fire({
-          title: "Oops...",
-          text: "Formato incorrecto del correo electronico",
-          icon: "error",
-          confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+    ev.preventDefault()
+    const { correo, contrasenia, rcontrasenia } = formValuesR
+    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correo)
+    if (regex == false) {
+      Swal.fire({
+        title: "Oops...",
+        text: "Formato incorrecto del correo electronico",
+        icon: "error",
+        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
       </svg>`
-        })
-      }
+      })
+    }
 
       if (!correo || !contrasenia || !rcontrasenia) {
         Swal.fire({
@@ -120,8 +121,8 @@ const NavbarC = () => {
           confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
       </svg>`
-        });
-      } else {
+      });
+    } else {
         if (contrasenia === rcontrasenia) {
           
           const sendFormR = await clienteAxios.post('/users', {
@@ -230,13 +231,13 @@ useEffect(() => {
                     <Nav.Link href="#link">
                       Sobre Nosotros
                     </Nav.Link>
-                    <Nav.Link href="#link">
+                    <Nav.Link href="/contacto">
                       Contacto
                     </Nav.Link>
-                    <Nav.Link href="#link">
+                    <Nav.Link href="/fav">
                       Favoritos
                     </Nav.Link>
-                    <Nav.Link href="#link">
+                    <Nav.Link href="/cart">
                       Carrito
                     </Nav.Link>
                   </Nav>
@@ -276,7 +277,7 @@ useEffect(() => {
                       <Nav.Link href="#link">
                         Sobre Nosotros
                       </Nav.Link>
-                      <Nav.Link href="#link">
+                      <Nav.Link href="/contacto">
                         Contacto
                       </Nav.Link>
                     </Nav>
