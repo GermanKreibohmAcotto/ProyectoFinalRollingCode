@@ -209,19 +209,13 @@ useEffect(() => {
                 ?
                 <>
                   <Form>
-                    <Row className='jusify-content-center'>
-                      <Col xs="auto">
                         <Form.Control
                           type="text"
                           placeholder="Por ej: caramelos"
                           className=" mr-sm-2"
                           onChange={handleChange}
                         />
-                      </Col>
-                      <Col xs="auto">
                         <Button onClick={handleClick}>Buscar</Button>
-                      </Col>
-                    </Row>
                   </Form>
                   <Nav>
                     <Nav.Link href="/sobreNosotros">
@@ -255,17 +249,19 @@ useEffect(() => {
                   </>
                   :
                   <>
-                    <Form>
-                      <Row className='jusify-content-center'>
-                        <Col xs="auto">
+                    <Form className='d-flex justify-content-center'>
+                      <Row className='d-flex jusify-content-center w-100'>
+                        <Col className='pe-0 w-75'>
                           <Form.Control
                             type="text"
                             placeholder="Por ej: caramelos"
-                            className=" mr-sm-2"
+                            className="rounded-0 rounded-start-2"
                           />
                         </Col>
-                        <Col xs="auto">
-                          <Button >Buscar</Button>
+                        <Col xs="auto" className='ps-0 '>
+                          <Button className='rounded-0 rounded-end-circle d-flex justify-content-center h-100 align-items-center'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search w-100" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg></Button>
                         </Col>
                       </Row>
                     </Form>
