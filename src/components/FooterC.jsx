@@ -7,7 +7,7 @@ import ImgC from '../components/ImgC.jsx'
 const FooterC = () => {
   return (
     <>
-      <Container fluid className='footer-style py-3 mt-auto'>
+      <Container fluid className='footer-style py-3 mt-3'>
         <div className='d-flex justify-content-center text-center'>
           <Row className='align-items-center'>
             <Col sm={12} lg={3} className=''>
