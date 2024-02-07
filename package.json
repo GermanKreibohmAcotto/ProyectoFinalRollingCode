@@ -26,6 +26,7 @@
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.21.2",
     "react-sweetalert2": "^0.5.2",
+    "reactstrap": "^9.2.2",
     "yup": "^1.3.3"
   },
   "devDependencies": {
@@ -36,7 +37,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "vite": "^5.0.8",
-    "@rollup/rollup-linux-x64-gnu": "4.9.5"
+    "vite": "^5.0.8"
   }
 }
