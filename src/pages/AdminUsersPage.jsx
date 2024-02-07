@@ -21,7 +21,7 @@ const AdminUsersPage = () => {
 
   const getAllUsers = async () => {
     try {
-      const getUsers = await clienteAxios.get('/users')
+      const getUsers = await clienteAxios.get('/users', config)
       setUsers(getUsers.data.getAllUsers)
     } catch (error) {
       Swal.fire({
