@@ -50,7 +50,7 @@ const TableC = ({ imagen, titulo, descripcion, precio, idProduct }) => {
                         <td>{precio}</td>
                         <td>{descripcion}</td>
                         <td>
-                            <input type="number" className='w-25' />
+                            <input type="number" className='w-100' />
                         </td>
 
                         <td>

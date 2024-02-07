@@ -36,7 +36,7 @@ const contactPage = () => {
     })
     return (
         <main>
-            <Container fluid>
+            <Container fluid className='mt-3'>
                 <Row>
                     <Col xs={12} md={4}>
                         <div className="text-bg-primary p-3 h-100 d-flex flex-column justify-content-center py-5 py-md-3">
