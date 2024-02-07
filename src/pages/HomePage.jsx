@@ -32,13 +32,13 @@ const HomePage = () => {
 
     return (
         <>
-            <ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707251741/tinywow_WhatsApp_Image_2024-02-06_at_5.30.23_PM_47109736_kc9nsx.jpg'} width={'100%'} />
+            <ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707251741/tinywow_WhatsApp_Image_2024-02-06_at_5.30.23_PM_47109736_kc9nsx.jpg'} width={'100%'}/>
 
             <Container >
                 <Row>
                     {
                         products?.map((product) =>
-                            <Col sm={12} md={6} lg={3} key={product._id} >
+                            <Col sm={12} md={6} lg={3} key={product._id} className='mb-3'>
                                 <CardsC imagen={product.imagen} titulo={product.titulo} descripcion={product.descripcion} precio={product.precio} idProduct={product._id} />
                             </Col>
                         )

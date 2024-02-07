@@ -42,7 +42,7 @@ const contactPage = () => {
             <Container fluid>
                 <Row>
                     <Col xs={12} md={4}>
-                        <div className="text-bg-warning p-3 h-100 d-flex flex-column justify-content-center py-5 py-md-3">
+                        <div className="text-bg-primary p-3 h-100 d-flex flex-column justify-content-center py-5 py-md-3">
                             <div className="d-flex justify-content-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="7em" fill="currentColor" className="bi bi-person-badge" viewBox="0 0 16 16">
                                     <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />

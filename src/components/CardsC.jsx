@@ -34,11 +34,11 @@ const CardsC = ({ imagen, titulo, descripcion, precio, idProduct, idPage }) => {
   }
 
   return (
-    <Card className='card-class my-3' key={idProduct}>
-      <Card.Img variant="top" src={imagen} />
-      <Card.Body className='text-center'>
+    <Card className='card-class my-3 h-100 ' key={idProduct}>
+      <Card.Img variant="top" src={imagen} className='object-fit-cover h-50'/>
+      <Card.Body className='text-center pt-3 pb-0'>
         <Card.Title className='title-class'>{titulo}</Card.Title>
-        <Card.Text>
+        <Card.Text className='text-truncate'>
           {descripcion}
         </Card.Text>
         <Card.Text>

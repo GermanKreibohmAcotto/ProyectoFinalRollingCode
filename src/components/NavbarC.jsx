@@ -210,15 +210,23 @@ useEffect(() => {
               token && role === "user"
                 ?
                 <>
-                  <Form>
-                        <Form.Control
-                          type="text"
-                          placeholder="Por ej: caramelos"
-                          className=" mr-sm-2"
-                          onChange={handleChange}
-                        />
-                        <Button onClick={handleClick}>Buscar</Button>
-                  </Form>
+                  <Form className='d-flex justify-content-center'>
+                      <Row className='d-flex jusify-content-center w-100'>
+                        <Col className='pe-0 w-75'>
+                          <Form.Control
+                            type="text"
+                            placeholder="Por ej: caramelos"
+                            className="rounded-0 rounded-start-2"
+                            onChange={handleChange}
+                          />
+                        </Col>
+                        <Col xs="auto" className='ps-0 '>
+                          <Button onClick={handleClick} className='rounded-0 rounded-end-circle d-flex justify-content-center h-100 align-items-center'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search w-100" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg></Button>
+                        </Col>
+                      </Row>
+                    </Form>
                   <Nav>
                     <NavLink to="/nosotros" className='nav-link'>
                       Sobre Nosotros
@@ -281,18 +289,18 @@ useEffect(() => {
               token && role
                 ?
                 <Nav>
-                  <Button variant="primary" onClick={singOff}>
+                  <NavLink className={"nav-link"} onClick={singOff}>
                     Cerrar sesion
-                  </Button>
+                  </NavLink>
                 </Nav>
                 :
-                <Nav>
-                  <Button variant="primary" onClick={handleShow}>
+                <Nav className='ms-0 ms-md-auto'>
+                  <NavLink className='nav-link' onClick={handleShow}>
                     Iniciar Sesion
-                  </Button>
-                  <Button variant="primary" onClick={handleShow2}>
+                  </NavLink>
+                  <NavLink className='nav-link' onClick={handleShow2}>
                     Registrarse
-                  </Button>
+                  </NavLink>
                 </Nav>
             }
 
