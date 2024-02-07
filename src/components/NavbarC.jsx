@@ -11,10 +11,11 @@ import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
 import clienteAxios, { config } from '../helpers/clientAxios';
 import ImgC from './ImgC';
+import { useNavigate } from 'react-router';
 
 const NavbarC = () => {
   const [images, setImages] = useState([]);
-
+  const navigate = useNavigate()
   const token = JSON.parse(sessionStorage.getItem("token"))
   const role = JSON.parse(sessionStorage.getItem("role"))
 
@@ -22,7 +23,7 @@ const NavbarC = () => {
     ev.preventDefault()
     sessionStorage.removeItem("token")
     sessionStorage.removeItem("role")
-    location.href = "/"
+    navigate("/")
   }
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -71,12 +72,12 @@ const NavbarC = () => {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
             sessionStorage.setItem("idUsuario", JSON.stringify(sendFormLogin.data.idUsuario))
-            location.href = "/user"
+            navigate("/user")
           } else if (sendFormLogin.data.role === "admin") {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
             sessionStorage.setItem("idUsuario", JSON.stringify(sendFormLogin.data.idUsuario))
-            location.href = "/admin"
+            navigate("/admin")
           }
         }
       }
@@ -218,33 +219,33 @@ useEffect(() => {
                         <Button onClick={handleClick}>Buscar</Button>
                   </Form>
                   <Nav>
-                    <Nav.Link href="/sobreNosotros">
+                    <NavLink to="/sobreNosotros">
                       Sobre Nosotros
-                    </Nav.Link>
-                    <Nav.Link href="/contacto">
+                    </NavLink>
+                    <NavLink to="/contacto">
                       Contacto
-                    </Nav.Link>
-                    <Nav.Link href="/fav">
+                    </NavLink>
+                    <NavLink to="/fav">
                       Favoritos
-                    </Nav.Link>
-                    <Nav.Link href="/cart">
+                    </NavLink>
+                    <NavLink to="/cart">
                       Carrito
-                    </Nav.Link>
+                    </NavLink>
                   </Nav>
                 </>
                 : token && role === "admin"
                   ?
                   <>
                     <Nav>
-                      <Nav.Link href="/usersAdmin">
+                      <NavLink to="/usersAdmin">
                         Usuarios
-                      </Nav.Link>
-                      <Nav.Link href="/productsAdmin">
+                      </NavLink>
+                      <NavLink to="/productsAdmin">
                         Productos
-                      </Nav.Link>
-                      <Nav.Link href="/imagesAdmin">
+                      </NavLink>
+                      <NavLink to="/imagesAdmin">
                         Imagenes
-                      </Nav.Link>
+                      </NavLink>
                     </Nav>
                   </>
                   :
@@ -266,12 +267,12 @@ useEffect(() => {
                       </Row>
                     </Form>
                     <Nav>
-                      <Nav.Link href="#link">
+                      <NavLink to="/sobreNosotros">
                         Sobre Nosotros
-                      </Nav.Link>
-                      <Nav.Link href="/contacto">
+                      </NavLink>
+                      <NavLink to="/contacto">
                         Contacto
-                      </Nav.Link>
+                      </NavLink>
                     </Nav>
                   </>
             }
