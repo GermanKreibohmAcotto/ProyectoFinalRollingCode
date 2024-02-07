@@ -6,6 +6,7 @@ import emailjs from '@emailjs/browser';
 import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
+import Swal from 'sweetalert2';
 
 const initialValues = {
     nombre: "",
@@ -21,13 +22,19 @@ const validationSchema = Yup.object({
 
 const contactPage = () => {
     const refForm = useRef()
-    const onSubmit = (event) => {
+    const onSubmit = () => {
         const serviceId = "service_erbrlnj"
         const templateId = "template_gjt8zq2"
         const apikey = "z89ogi_VH85JYCCJ_"
         emailjs.sendForm(serviceId, templateId, refForm.current, apikey)
             .then(result => console.log(result.text))
             .catch(error => console.error(error))
+        if (emailjs.sendForm) {
+            Swal.fire({
+                title: "Se mando su consulta con exito!",
+                icon: "success",
+              });
+        }
     }
     const { handleChange, errors, handleSubmit } = useFormik({
         initialValues,
