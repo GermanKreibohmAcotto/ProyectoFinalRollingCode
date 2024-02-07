@@ -66,6 +66,7 @@ const AdminProductPage = () => {
                         title: "Creado con exito",
                         icon: "success",
                     });
+                    handleClose1()
                 }
             }
         } catch (error) {

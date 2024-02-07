@@ -100,8 +100,8 @@ const NavbarC = () => {
 
   const sendFormR = async (ev) => {
     try {
-    ev.preventDefault()
-    const { correo, contrasenia, rcontrasenia } = formValuesR
+      const { correo, contrasenia, rcontrasenia } = formValuesR
+      ev.preventDefault()
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correo)
     if (regex == false) {
       Swal.fire({
