@@ -17,9 +17,8 @@ import PrivateRoute from "../components/PrivateRoute"
 
 const RoutesViews = () => {
     return (
-        <>
-
-            <NavbarC />
+        <> 
+             <NavbarC/>
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/product/:id" element={<ProductPage/>} />
