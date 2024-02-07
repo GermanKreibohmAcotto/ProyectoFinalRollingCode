@@ -68,7 +68,10 @@ const NavbarC = () => {
           }, config)
 
         if (sendFormLogin.status === 200) {
-
+            Swal.fire({
+          title: "Inicio con exito",
+          icon: "success"
+        });
           if (sendFormLogin.data.role === "user") {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
