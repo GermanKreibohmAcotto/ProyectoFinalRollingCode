@@ -13,31 +13,62 @@ import AdminPage from "../pages/AdminPage"
 import { AdminImagesPage } from "../pages/AdminImagesPage"
 import CartPage from "../pages/CartPage"
 import FavoritesPage from "../pages/FavoritesPage"
-import SobreNostrosPage from "../pages/SobreNostrosPage"
+import PrivateRoute from "../components/PrivateRoute"
 
 const RoutesViews = () => {
     return (
-        <>
-            
+        <> 
              <NavbarC/>
             <Routes>
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="/product/:id" element={<ProductPage/>}/>
-                <Route path="/contacto" element={<ContactPage/>}/>
-                <Route path="/user" element={<UserPage/>}/>
-                <Route path="/cart" element={<CartPage/>}/>
-                <Route path="/fav" element={<FavoritesPage/>}/>
-                <Route path="/admin" element={<AdminPage/>}/>
-                <Route path="/usersAdmin" element={<AdminUsersPage/>}/>
-                <Route path="/sobreNosotros" element={<SobreNostrosPage/>}/>
-                <Route path="/imagesAdmin" element={<AdminImagesPage/>}/>
-                <Route path="/productsAdmin" element={<AdminProductPage/>}/>
-                <Route path="/result/:res" element={<ResultPage/>}/>
-                <Route path="*" element={<ErrorPage/>}/>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/product/:id" element={<ProductPage/>} />
+                <Route path="/contacto" element={<ContactPage />} />
+                <Route path="/user" element={
+                <PrivateRoute role='user'>
+                    <UserPage />
+                </PrivateRoute>
+                } />
+                <Route path="/cart" element={
+                <PrivateRoute role='user'>
+                    <CartPage/>
+                </PrivateRoute>
+                } />
+                <Route path="/fav" element={
+                <PrivateRoute role='user'>
+                    <FavoritesPage/>
+                </PrivateRoute>
+                } />
+                <Route path="/admin" element={
+                <PrivateRoute role='admin'>
+                    <AdminPage/>
+                </PrivateRoute>
+                } />
+                <Route path="/usersAdmin" element={
+                <PrivateRoute role='admin'>
+                    <AdminUsersPage/>
+                </PrivateRoute>
+                } />
+                <Route path="/imagesAdmin" element={
+                <PrivateRoute role='admin'>
+                    <AdminImagesPage/>
+                </PrivateRoute>
+                } />
+                <Route path="/productsAdmin" element={
+                <PrivateRoute role='admin'>
+                    <AdminProductPage/>
+                </PrivateRoute>
+                } />
+                <Route path='/admin' element={
+                <PrivateRoute role='admin'>
+                    <AdminPage />
+                </PrivateRoute>
+                } />
+                <Route path="/result/:res" element={<ResultPage />} />
+                <Route path="*" element={<ErrorPage />} />
             </Routes>
-            <FooterC/>
-           
-    
+            <FooterC />
+
+
         </>
     )
 }
