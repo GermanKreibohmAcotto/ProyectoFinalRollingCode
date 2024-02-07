@@ -18,7 +18,7 @@ import SobreNostrosPage from "../pages/SobreNostrosPage"
 const RoutesViews = () => {
     return (
         <>
-      
+            
              <NavbarC/>
             <Routes>
                 <Route path="/" element={<HomePage/>}/>

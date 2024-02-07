@@ -197,9 +197,9 @@ useEffect(() => {
   
   return (
     <>
-      <Navbar expand="lg" className="cNavbar">
+      <Navbar expand="lg" className="cNavbar sticky-top">
         <Container fluid>
-          <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707176096/wgbnztfg9lzpk6nsy4pz.png'} width={'150'}/></Navbar.Brand>
+          <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'} width={'150'}/></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
 

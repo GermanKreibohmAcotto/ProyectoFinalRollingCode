@@ -7,12 +7,12 @@ import ImgC from '../components/ImgC.jsx'
 const FooterC = () => {
   return (
     <>
-      <Container fluid className='footer-style py-3 '>
+      <Container fluid className='footer-style py-3 mt-auto'>
         <div className='d-flex justify-content-center text-center'>
           <Row className='align-items-center'>
-            <Col sm={12} lg={3}>
-              <ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707176096/wgbnztfg9lzpk6nsy4pz.png'}
-                alt={'logo'} width={'55%'} />
+            <Col sm={12} lg={3} className=''>
+              <ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'}
+                alt={'logo'} width={'30%'}/>
             </Col>
             <Col sm={4} lg={3} className='p-3'>
             <b><u>Seguinos en nuestras redes</u></b>
