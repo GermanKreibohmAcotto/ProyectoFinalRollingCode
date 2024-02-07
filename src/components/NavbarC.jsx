@@ -77,11 +77,14 @@ const NavbarC = () => {
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
             sessionStorage.setItem("idUsuario", JSON.stringify(sendFormLogin.data.idUsuario))
             navigate("/user")
+            handleClose()
           } else if (sendFormLogin.data.role === "admin") {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
             sessionStorage.setItem("idUsuario", JSON.stringify(sendFormLogin.data.idUsuario))
             navigate("/admin")
+            handleClose()
+
           }
         }
       }
@@ -141,6 +144,7 @@ const NavbarC = () => {
               title: "Se registro con exito",
               icon: "success",
             });
+            handleClose2()
           }
         } else {
           Swal.fire({
