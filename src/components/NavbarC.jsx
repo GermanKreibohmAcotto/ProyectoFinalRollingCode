@@ -220,16 +220,16 @@ useEffect(() => {
                         <Button onClick={handleClick}>Buscar</Button>
                   </Form>
                   <Nav>
-                    <NavLink to="/sobreNosotros">
+                    <NavLink to="/nosotros" className='nav-link'>
                       Sobre Nosotros
                     </NavLink>
-                    <NavLink to="/contacto">
+                    <NavLink to="/contacto" className='nav-link'>
                       Contacto
                     </NavLink>
-                    <NavLink to="/fav">
+                    <NavLink to="/fav" className='nav-link'>
                       Favoritos
                     </NavLink>
-                    <NavLink to="/cart">
+                    <NavLink to="/cart" className='nav-link'>
                       Carrito
                     </NavLink>
                   </Nav>
@@ -238,13 +238,13 @@ useEffect(() => {
                   ?
                   <>
                     <Nav>
-                      <NavLink to="/usersAdmin">
+                      <NavLink to="/usersAdmin" className='nav-link'>
                         Usuarios
                       </NavLink>
-                      <NavLink to="/productsAdmin">
+                      <NavLink to="/productsAdmin" className='nav-link'>
                         Productos
                       </NavLink>
-                      <NavLink to="/imagesAdmin">
+                      <NavLink to="/imagesAdmin" className='nav-link'>
                         Imagenes
                       </NavLink>
                     </Nav>
@@ -268,10 +268,10 @@ useEffect(() => {
                       </Row>
                     </Form>
                     <Nav>
-                      <NavLink to="/sobreNosotros">
+                      <NavLink to="/nosotros" className='nav-link'>
                         Sobre Nosotros
                       </NavLink>
-                      <NavLink to="/contacto">
+                      <NavLink to="/contacto" className='nav-link'>
                         Contacto
                       </NavLink>
                     </Nav>

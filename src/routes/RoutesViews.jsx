@@ -14,6 +14,7 @@ import { AdminImagesPage } from "../pages/AdminImagesPage"
 import CartPage from "../pages/CartPage"
 import FavoritesPage from "../pages/FavoritesPage"
 import PrivateRoute from "../components/PrivateRoute"
+import SobreNosotrosPage from "../pages/SobreNostrosPage"
 
 const RoutesViews = () => {
     return (
@@ -23,6 +24,7 @@ const RoutesViews = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/product/:id" element={<ProductPage/>} />
                 <Route path="/contacto" element={<ContactPage />} />
+                <Route path="/nosotros" element={<SobreNosotrosPage/>} />
                 <Route path="/user" element={
                 <PrivateRoute role='user'>
                     <UserPage />

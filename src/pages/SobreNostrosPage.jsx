@@ -1,6 +1,6 @@
 import Container from 'react-bootstrap/Container';
 
-export const SobreNostrosPage = () => {
+export const SobreNosotrosPage = () => {
     return (
         <>
            <Container>
@@ -18,4 +18,4 @@ export const SobreNostrosPage = () => {
     )
 }
 
-export default SobreNostrosPage
+export default SobreNosotrosPage
