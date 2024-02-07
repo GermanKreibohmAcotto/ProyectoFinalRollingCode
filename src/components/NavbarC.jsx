@@ -102,19 +102,19 @@ const NavbarC = () => {
 
   const sendFormR = async (ev) => {
     try {
-    ev.preventDefault()
-    const { correo, contrasenia, rcontrasenia } = formValuesR
-    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correo)
-    if (regex == false) {
-      Swal.fire({
-        title: "Oops...",
-        text: "Formato incorrecto del correo electronico",
-        icon: "error",
-        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+      ev.preventDefault()
+      const { correo, contrasenia, rcontrasenia } = formValuesR
+      const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correo)
+      if (regex == false) {
+        Swal.fire({
+          title: "Oops...",
+          text: "Formato incorrecto del correo electronico",
+          icon: "error",
+          confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
       </svg>`
-      })
-    }
+        })
+      }
 
       if (!correo || !contrasenia || !rcontrasenia) {
         Swal.fire({
@@ -124,10 +124,10 @@ const NavbarC = () => {
           confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
       </svg>`
-      });
-    } else {
+        });
+      } else {
         if (contrasenia === rcontrasenia) {
-          
+
           const sendFormR = await clienteAxios.post('/users', {
             correo: correo,
             contrasenia: contrasenia,
@@ -139,17 +139,17 @@ const NavbarC = () => {
               icon: "success",
             });
           }
-          } else {
-            Swal.fire({
-              title: "Oops...",
-              text: "Las contraseñas no coinciden",
-              icon: "error",
-              confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+        } else {
+          Swal.fire({
+            title: "Oops...",
+            text: "Las contraseñas no coinciden",
+            icon: "error",
+            confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
            </svg>`
-            });
-          }
-        
+          });
+        }
+
       }
     } catch (error) {
       Swal.fire({
@@ -177,56 +177,55 @@ const NavbarC = () => {
   const getAllImages = async () => {
     try {
 
-        const getAllImages = await clienteAxios.get('/images/')
-        setImages(getAllImages.data.getAllImages)
+      const getAllImages = await clienteAxios.get('/images/')
+      setImages(getAllImages.data.getAllImages)
 
     } catch (error) {
-        Swal.fire({
-            title: "Oops...",
-            text: "Surgio algun error en la obtecion de productos",
-            icon: "error",
-            confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
+      Swal.fire({
+        title: "Oops...",
+        text: "Surgio algun error en la obtecion de productos",
+        icon: "error",
+        confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
       </svg>`
-        });
+      });
     }
-}
+  }
 
-useEffect(() => {
+  useEffect(() => {
     getAllImages()
-}, [])
+  }, [])
 
-  
+
   return (
     <>
       <Navbar expand="lg" className="cNavbar sticky-top">
         <Container fluid>
-          <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'} width={'150'}/></Navbar.Brand>
+          <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'} width={'150'} /></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-
 
             {
               token && role === "user"
                 ?
                 <>
                   <Form className='d-flex justify-content-center'>
-                      <Row className='d-flex jusify-content-center w-100'>
-                        <Col className='pe-0 w-75'>
-                          <Form.Control
-                            type="text"
-                            placeholder="Por ej: caramelos"
-                            className="rounded-0 rounded-start-2"
-                            onChange={handleChange}
-                          />
-                        </Col>
-                        <Col xs="auto" className='ps-0 '>
-                          <Button onClick={handleClick} className='rounded-0 rounded-end-circle d-flex justify-content-center h-100 align-items-center'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search w-100" viewBox="0 0 16 16">
-  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-</svg></Button>
-                        </Col>
-                      </Row>
-                    </Form>
+                    <Row className='d-flex jusify-content-center w-100'>
+                      <Col className='pe-0 w-75'>
+                        <Form.Control
+                          type="text"
+                          placeholder="Por ej: caramelos"
+                          className="rounded-0 rounded-start-2"
+                          onChange={handleChange}
+                        />
+                      </Col>
+                      <Col xs="auto" className='ps-0 '>
+                        <Button onClick={handleClick} className='rounded-0 rounded-end-circle d-flex justify-content-center h-100 align-items-center'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search w-100" viewBox="0 0 16 16">
+                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg></Button>
+                      </Col>
+                    </Row>
+                  </Form>
                   <Nav>
                     <NavLink to="/nosotros" className='nav-link'>
                       Sobre Nosotros
@@ -270,8 +269,8 @@ useEffect(() => {
                         </Col>
                         <Col xs="auto" className='ps-0 '>
                           <Button className='rounded-0 rounded-end-circle d-flex justify-content-center h-100 align-items-center'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search w-100" viewBox="0 0 16 16">
-  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-</svg></Button>
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                          </svg></Button>
                         </Col>
                       </Row>
                     </Form>

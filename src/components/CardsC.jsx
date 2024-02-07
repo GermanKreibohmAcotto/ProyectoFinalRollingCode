@@ -15,7 +15,7 @@ const CardsC = ({ imagen, titulo, descripcion, precio, idProduct, idPage }) => {
         const confirmDeletedProd = confirm('Estas seguro de que quieres eliminar este producto?')
         if (confirmDeletedProd) {
           const productsFav = await clienteAxios.delete(`/favs/${dataUser.data.getAOneUser.idFav}/${idProduct}`, config)
-          
+
           if (productsFav.status === 200) {
             Swal.fire({
               title: "Producto eliminado correctamente!",
@@ -35,7 +35,7 @@ const CardsC = ({ imagen, titulo, descripcion, precio, idProduct, idPage }) => {
 
   return (
     <Card className='card-class my-3 h-100 ' key={idProduct}>
-      <Card.Img variant="top" src={imagen} className='object-fit-cover h-50'/>
+      <Card.Img variant="top" src={imagen} className='object-fit-cover h-50' />
       <Card.Body className='text-center pt-3 pb-0'>
         <Card.Title className='title-class'>{titulo}</Card.Title>
         <Card.Text className='text-truncate'>

@@ -29,9 +29,7 @@ const TableC = ({ imagen, titulo, descripcion, precio, idProduct }) => {
         } catch (error) {
             console.log(error)
         }
-
     }
-
     return (
         <div>
             <Table striped bordered hover className='w-100'>
@@ -60,7 +58,6 @@ const TableC = ({ imagen, titulo, descripcion, precio, idProduct }) => {
                         </td>
                     </tr>
                 </tbody>
-
             </Table>
         </div>
     )

@@ -6,12 +6,10 @@ import clienteAxios, { config } from '../helpers/clientAxios';
 
 
 const ProductPage = () => {
-
     const params = useParams()
     const navigate = useNavigate()
     const [product, setProduct] = useState({})
     const token = JSON.parse(sessionStorage.getItem('token')) || ''
-
 
     const getOneProduct = async () => {
         try {
@@ -41,15 +39,15 @@ const ProductPage = () => {
                     navigate('/login')
                 }, 3000)
             } else {
-                const addProduct = await clienteAxios.post(`/products/cart/${params.id}`,{},config)
+                const addProduct = await clienteAxios.post(`/products/cart/${params.id}`, {}, config)
 
-                    if (addProduct.status === 200) {
-                        Swal.fire({
-                            title: "Producto agregado con exito",
-                            text: "Ahora puedes visualizar este producto en tu carrito!",
-                            icon: "success",
-                        });
-                    }
+                if (addProduct.status === 200) {
+                    Swal.fire({
+                        title: "Producto agregado con exito",
+                        text: "Ahora puedes visualizar este producto en tu carrito!",
+                        icon: "success",
+                    });
+                }
 
             }
         } catch (error) {
@@ -74,15 +72,15 @@ const ProductPage = () => {
                     navigate('/login')
                 }, 3000)
             } else {
-                const addProduct = await clienteAxios.post(`/products/fav/${params.id}`,{}, config)
+                const addProduct = await clienteAxios.post(`/products/fav/${params.id}`, {}, config)
 
-                    if (addProduct.status === 200) {
-                        Swal.fire({
-                            title: "Producto agregado a Favoritos",
-                            text: "Ahora puedes visualizar este producto en Favoritos!",
-                            icon: "success",
-                        });
-                    }
+                if (addProduct.status === 200) {
+                    Swal.fire({
+                        title: "Producto agregado a Favoritos",
+                        text: "Ahora puedes visualizar este producto en Favoritos!",
+                        icon: "success",
+                    });
+                }
             }
         } catch (error) {
             if (error.response.status === 400) {
