@@ -6,6 +6,7 @@ import emailjs from '@emailjs/browser';
 import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
+import Swal from 'sweetalert2';
 
 const initialValues = {
     nombre: "",
@@ -20,35 +21,37 @@ const validationSchema = Yup.object({
 })
 
 const contactPage = () => {
-
     const refForm = useRef()
-
-
-    const onSubmit = (event) => {
+    const onSubmit = () => {
         const serviceId = "service_erbrlnj"
         const templateId = "template_gjt8zq2"
         const apikey = "z89ogi_VH85JYCCJ_"
         emailjs.sendForm(serviceId, templateId, refForm.current, apikey)
             .then(result => console.log(result.text))
             .catch(error => console.error(error))
+        if (emailjs.sendForm) {
+            Swal.fire({
+                title: "Se mando su consulta con exito!",
+                icon: "success",
+              });
+        }
     }
-    const { handleChange, errors, handleSubmit} = useFormik({
+    const { handleChange, errors, handleSubmit } = useFormik({
         initialValues,
         onSubmit,
         validationSchema
     })
     return (
         <main>
-            <Container fluid>
+            <Container fluid className='mt-3'>
                 <Row>
                     <Col xs={12} md={4}>
-                        <div className="text-bg-warning p-3 h-100 d-flex flex-column justify-content-center py-5 py-md-3">
+                        <div className="text-bg-primary p-3 h-100 d-flex flex-column justify-content-center py-5 py-md-3">
                             <div className="d-flex justify-content-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="7em" fill="currentColor" className="bi bi-person-badge" viewBox="0 0 16 16">
                                     <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                                     <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492z" />
                                 </svg>
-
                             </div>
                             <h1 className="text-center mb-md-5">Contactanos!</h1>
                             <div className="d-flex justify-content-center">
@@ -71,28 +74,23 @@ const contactPage = () => {
                                     <Col sm={12} className="mb-2"><label className="h4">Nombre</label>
                                         <input className="d-block w-100 rounded border border-dark py-1 px-2 focus-ring focus-ring-secondary" type="text" name="nombre" onChange={handleChange} />
                                         <small className='text-danger'>{errors?.nombre}</small>
-                                        </Col>
+                                    </Col>
                                     <Col sm={12} className="mb-2"><label className="h4">Correo Electronico</label>
-                                        <input type="email" name="correo" className="d-block w-100 rounded border border-dark py-1 px-2 focus-ring focus-ring-secondary" onChange={handleChange}/>
+                                        <input type="email" name="correo" className="d-block w-100 rounded border border-dark py-1 px-2 focus-ring focus-ring-secondary" onChange={handleChange} />
                                         <small className='text-danger'>{errors?.correo}</small>
-                                        </Col>
+                                    </Col>
                                     <Col sm={12} className="mb-2"><label className="h4">Mensaje</label>
-                                        <textarea name="mensaje" className="d-block w-100 rounded border border-dark py-1 px-2 focus-ring focus-ring-secondary" rows={"7"} onChange={handleChange}/>
+                                        <textarea name="mensaje" className="d-block w-100 rounded border border-dark py-1 px-2 focus-ring focus-ring-secondary" rows={"7"} onChange={handleChange} />
                                         <small className='text-danger'>{errors?.mensaje}</small>
-                                        </Col>
+                                    </Col>
                                     <div className="d-flex justify-content-end">
                                         <Col sm={12} md={3} ><Button variant="primary" type="submit" className="w-100">
                                             Enviar
                                         </Button></Col>
                                     </div>
-
-
-
-
                                 </form>
                             </Row>
                         </Container>
-
                     </Col>
                 </Row>
             </Container>

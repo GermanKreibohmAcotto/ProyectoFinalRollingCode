@@ -6,11 +6,10 @@ import Col from 'react-bootstrap/Col';
 import clienteAxios from '../helpers/clientAxios';
 import Swal from 'sweetalert2';
 import ImgC from '../components/ImgC';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const HomePage = () => {
-
     const [products, setProducts] = useState([])
-
     const getAllProducts = async () => {
         try {
             const getProducts = await clienteAxios.get('/products')
@@ -34,16 +33,38 @@ const HomePage = () => {
         <>
             <ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707251741/tinywow_WhatsApp_Image_2024-02-06_at_5.30.23_PM_47109736_kc9nsx.jpg'} width={'100%'} />
 
-            <Container >
-                <Row>
-                    {
-                        products?.map((product) =>
-                            <Col sm={12} md={6} lg={3} key={product._id} >
-                                <CardsC imagen={product.imagen} titulo={product.titulo} descripcion={product.descripcion} precio={product.precio} idProduct={product._id} />
-                            </Col>
-                        )
-                    }
-                </Row>
+            <Container fluid className='px-0'>
+                <Container fluid>
+                    <Row>
+                        <Col xs={3}>
+                            <ListGroup variant="flush">
+                                <ListGroup.Item className='h3 text-center'>Categorias</ListGroup.Item>
+                                <ListGroup.Item>Caramelos</ListGroup.Item>
+                                <ListGroup.Item>Chicles</ListGroup.Item>
+                                <ListGroup.Item>Gomitas</ListGroup.Item>
+                                <ListGroup.Item>Pastillas</ListGroup.Item>
+                                <ListGroup.Item>Chocolates</ListGroup.Item>
+                                <ListGroup.Item>Bebidas</ListGroup.Item>
+                                <ListGroup.Item>Veganas</ListGroup.Item>
+                                <ListGroup.Item>Sin gluten</ListGroup.Item>
+                                <ListGroup.Item>Sin azúcar</ListGroup.Item>
+                            </ListGroup>
+                        </Col>
+                        <Col xs={9} className='pe-0'>
+                            <Container fluid className='pe-0'>
+                                <Row className='w-100'>
+                                    {
+                                        products?.map((product) =>
+                                            <Col sm={12} md={6} lg={3} key={product._id} className='mb-3'>
+                                                <CardsC imagen={product.imagen} titulo={product.titulo} descripcion={product.descripcion} precio={product.precio} idProduct={product._id} />
+                                            </Col>
+                                        )
+                                    }
+                                </Row>
+                            </Container>
+                        </Col>
+                    </Row>
+                </Container>
             </Container>
         </>
     )

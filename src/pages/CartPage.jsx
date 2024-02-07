@@ -1,17 +1,20 @@
-import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
-import clienteAxios from '../helpers/clientAxios';
+import clienteAxios, { config } from '../helpers/clientAxios';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import TableC from '../components/TableC';
 
 const CartPage = () => {
   const [productsCart, setProductCart] = useState([])
 
   const getAllProductsCart = async () => {
     try {
-      const idUsuario = JSON.parse(sessionStorage.getItem('isUsuario'))
-      const dataUser = await clienteAxios.get(`/users/${idUsuario}`)
+      const idUsuario = JSON.parse(sessionStorage.getItem('idUsuario'))
+      const dataUser = await clienteAxios.get(`/users/${idUsuario}`, config)
 
-      if(dataUser.status === 200){
-        const productsCart = await clienteAxios.get(`/carts/${dataUser.data.getUser.idCart}`)
+      if (dataUser.status === 200) {
+        const productsCart = await clienteAxios.get(`/carts/${dataUser.data.getAOneUser.idCart}`, config)
         setProductCart(productsCart.data.products)
       }
     } catch (error) {
@@ -24,38 +27,19 @@ const CartPage = () => {
   }, [])
   return (
     <>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            productsCart.map((product) =>
-              <tr key={product._id}>
-                <td>{product.titulo}</td>
-                <td>{product.precio}</td>
-                <td>{product.descripcion}</td>
-                <td>
-                  <input type="number" className='w-25' />
-                </td>
-                <td>
-
-                </td>
-                <td>
-                  <button className='btn btn-outline-danger' onClick={() => delProdCart(product.id)}>Eliminar</button><button className='btn btn-outline-success m-5'>Pagar</button>
-                </td>
-              </tr>
-            )
-          }
-        </tbody>
-        
-      </Table>
+      <Container fluid className='m-0'>
+        <Row>
+          <Col xs={12}>
+            {
+              productsCart?.map((product) =>
+                <div key={product._id}>
+                  <TableC imagen={product.imagen} titulo={product.titulo} precio={`${product.precio}$`} descripcion={product.descripcion} idPage={"FavPage"} idProduct={product._id} />
+                </div>
+              )
+            }
+          </Col>
+        </Row>
+      </Container>
     </>
   )
 }

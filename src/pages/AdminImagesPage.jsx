@@ -9,20 +9,13 @@ import clienteAxios, { config } from '../helpers/clientAxios';
 export const AdminImagesPage = () => {
     const [images, setImages] = useState([]);
     const [imageState, setImageState] = useState({});
-
-
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-
     const [newImage, setnewImage] = useState({
         titulo: '',
     })
-
     const [imagen, setImagen] = useState({})
-
     const handleChange = (ev) => {
         setnewImage({ ...newImage, [ev.target.name]: ev.target.value })
     }

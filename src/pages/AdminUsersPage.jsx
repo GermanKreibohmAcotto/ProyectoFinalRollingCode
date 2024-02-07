@@ -7,11 +7,9 @@ import Swal from 'sweetalert2';
 import clienteAxios, { config } from '../helpers/clientAxios';
 
 const AdminUsersPage = () => {
-
   const [users, setUsers] = useState([])
   const [show, setShow] = useState(false);
   const [userState, setUserState] = useState({})
-
   const handleClose = () => setShow(false);
 
   const handleShow = (userData) => {
@@ -21,7 +19,7 @@ const AdminUsersPage = () => {
 
   const getAllUsers = async () => {
     try {
-      const getUsers = await clienteAxios.get('/users')
+      const getUsers = await clienteAxios.get('/users', config)
       setUsers(getUsers.data.getAllUsers)
     } catch (error) {
       Swal.fire({
@@ -40,9 +38,9 @@ const AdminUsersPage = () => {
   }
 
   const handleClick = async (ev) => {
-    
+
     try {
-      
+
       ev.preventDefault()
       const updateUser = await clienteAxios.put(`/users/${userState._id}`, userState, config)
       if (updateUser) {
@@ -137,12 +135,10 @@ const AdminUsersPage = () => {
                     </Modal.Header>
                     <Modal.Body>
                       <Form>
-
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                           <Form.Label>Mail</Form.Label>
                           <Form.Control type="email" value={userState.correo} onChange={handleChange} name='correo' />
                         </Form.Group>
-
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                           <Form.Label>Role</Form.Label>
                           <Form.Select onChange={handleChange} value={userState.role} name='role'>
@@ -150,11 +146,9 @@ const AdminUsersPage = () => {
                             <option value='admin'>Administrador</option>
                           </Form.Select>
                         </Form.Group>
-
                         <Button variant="primary" type="submit" onClick={handleClick}>
                           Guardar Cambios
                         </Button>
-
                       </Form>
                     </Modal.Body>
                   </Modal>
