@@ -22,6 +22,7 @@
     "react": "^17.0.2",
     "react-bootstrap": "^2.9.2",
     "react-dom": "^17.0.2",
+    "react-dom/client": "https://github.com/react-dom/client.git",
     "react-hook-form": "^7.50.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.21.2",
