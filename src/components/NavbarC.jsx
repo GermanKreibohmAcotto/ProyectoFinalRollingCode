@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import clienteAxios, { config } from '../helpers/clientAxios';
 import ImgC from './ImgC';
 import { useNavigate } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 const NavbarC = () => {
   const [images, setImages] = useState([]);
