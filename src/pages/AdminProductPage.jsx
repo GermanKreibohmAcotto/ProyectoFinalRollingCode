@@ -51,14 +51,14 @@ const AdminProductPage = () => {
                 });
             } else {
 
-              
+
                 const data = new FormData()
                 data.append('titulo', newProduct.titulo)
                 data.append('codigo', newProduct.codigo)
-                data.append('precio', newProduct.precio )
+                data.append('precio', newProduct.precio)
                 data.append('descripcion', newProduct.descripcion)
                 data.append('imagen', imagen)
-            
+
                 const createProd = await clienteAxios.post('/products', data, config)
 
                 if (createProd) {
@@ -69,7 +69,7 @@ const AdminProductPage = () => {
                 }
             }
         } catch (error) {
-          
+
             Swal.fire({
                 title: "Oops...",
                 text: "Surgio algun error en la creacion del producto",
