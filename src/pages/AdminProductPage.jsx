@@ -51,15 +51,16 @@ const AdminProductPage = () => {
                 });
             } else {
 
-              
+
                 const data = new FormData()
                 data.append('titulo', newProduct.titulo)
                 data.append('codigo', newProduct.codigo)
-                data.append('precio', newProduct.precio )
+                data.append('precio', newProduct.precio)
                 data.append('descripcion', newProduct.descripcion)
                 data.append('imagen', imagen)
-            
+
                 const createProd = await clienteAxios.post('/products', data, config)
+
                 if (createProd) {
                     Swal.fire({
                         title: "Creado con exito",
@@ -68,7 +69,7 @@ const AdminProductPage = () => {
                 }
             }
         } catch (error) {
-          
+
             Swal.fire({
                 title: "Oops...",
                 text: "Surgio algun error en la creacion del producto",
@@ -104,7 +105,6 @@ const AdminProductPage = () => {
           </svg>`
             });
         }
-
     }
 
     useEffect(() => {
@@ -118,21 +118,16 @@ const AdminProductPage = () => {
         try {
             ev.preventDefault()
 
-            const formData = new FormData()
-            formData.append('titulo', productState.titulo)
-            formData.append('codigo', productState.codigo)
-            formData.append('precio', productState.precio)
-            formData.append('descripcion', productState.descripcion)
-            formData.append('imagen', imagen)
 
-            const updateProduct = await clienteAxios.put(`/products/${productState._id}`, formData, config)
+            const updateProduct = await clienteAxios.put(`/products/${productState._id}`, productState, config)
+
 
             if (updateProduct.status === 200) {
-                handleClose()
                 Swal.fire({
                     title: "Actualizado con exito",
                     icon: "success",
                 });
+                handleClose()
             }
         } catch (error) {
             console.log(error)
@@ -283,11 +278,6 @@ const AdminProductPage = () => {
                                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                                     <Form.Label>Codigo</Form.Label>
                                                     <Form.Control type="text" value={productState.codigo} onChange={handleChange} name='codigo' />
-                                                </Form.Group>
-
-                                                <Form.Group className="mb-3" controlId="formBasicPassword">
-                                                    <Form.Label>Imagen</Form.Label>
-                                                    <Form.Control type="file" onChange={handleChange} name='imagen' />
                                                 </Form.Group>
 
                                                 <Button variant="primary" type="submit" onClick={handleClick}>

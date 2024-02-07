@@ -40,10 +40,10 @@ const AdminUsersPage = () => {
   }
 
   const handleClick = async (ev) => {
-    ev.preventDefault()
-
+    
     try {
-
+      
+      ev.preventDefault()
       const updateUser = await clienteAxios.put(`/users/${userState._id}`, userState, config)
       if (updateUser) {
         handleClose()

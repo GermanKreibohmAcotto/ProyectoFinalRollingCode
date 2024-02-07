@@ -224,7 +224,7 @@ useEffect(() => {
                     </Row>
                   </Form>
                   <Nav>
-                    <Nav.Link href="#link">
+                    <Nav.Link href="/sobreNosotros">
                       Sobre Nosotros
                     </Nav.Link>
                     <Nav.Link href="/contacto">

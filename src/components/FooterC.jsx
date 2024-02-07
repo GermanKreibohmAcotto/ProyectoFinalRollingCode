@@ -22,7 +22,7 @@ const FooterC = () => {
             </Col>
             <Col sm={4} lg={3}>
             <b><u>Ayuda</u></b>
-              <Link className='nav-link' to={'sobreNosotros'}>Quienes somos?</Link>
+              <Link className='nav-link' to='/sobreNosotros'>Quienes somos?</Link>
               <Link className='nav-link' to='/contacto'>Contacto</Link>
               <Link className='nav-link' to='*'>Boton de arrepentimiento</Link>
               <Link className='nav-link' to='*'>Trabaja con nosotros</Link>
