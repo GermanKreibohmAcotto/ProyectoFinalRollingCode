@@ -77,11 +77,14 @@ const NavbarC = () => {
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
             sessionStorage.setItem("idUsuario", JSON.stringify(sendFormLogin.data.idUsuario))
             navigate("/user")
+            handleClose()
           } else if (sendFormLogin.data.role === "admin") {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
             sessionStorage.setItem("idUsuario", JSON.stringify(sendFormLogin.data.idUsuario))
             navigate("/admin")
+            handleClose()
+
           }
         }
       }
@@ -141,6 +144,7 @@ const NavbarC = () => {
               title: "Se registro con exito",
               icon: "success",
             });
+            handleClose2()
           }
         } else {
           Swal.fire({
@@ -202,7 +206,7 @@ const NavbarC = () => {
 
   return (
     <>
-      <Navbar expand="lg" className="cNavbar sticky-top">
+      <Navbar expand="lg" className="cNavbar sticky-top text-center">
         <Container fluid>
           <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'} width={'150'} /></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
