@@ -206,7 +206,7 @@ const NavbarC = () => {
 
   return (
     <>
-      <Navbar expand="lg" className="cNavbar sticky-top">
+      <Navbar expand="lg" className="cNavbar sticky-top text-center">
         <Container fluid>
           <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'} width={'150'} /></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

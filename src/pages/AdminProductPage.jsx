@@ -123,7 +123,6 @@ const AdminProductPage = () => {
             formData.append('codigo', productState.codigo)
             formData.append('precio', productState.precio)
             formData.append('descripcion', productState.descripcion)
-            formData.append('imagen', imagen)
 
             const updateProduct = await clienteAxios.put(`/products/${productState._id}`, formData, config)
 
@@ -285,11 +284,7 @@ const AdminProductPage = () => {
                                                     <Form.Control type="text" value={productState.codigo} onChange={handleChange} name='codigo' />
                                                 </Form.Group>
 
-                                                <Form.Group className="mb-3" controlId="formBasicPassword">
-                                                    <Form.Label>Imagen</Form.Label>
-                                                    <Form.Control type="file" onChange={handleChange} name='imagen' />
-                                                </Form.Group>
-
+                                               
                                                 <Button variant="primary" type="submit" onClick={handleClick}>
                                                     Guardar Cambios
                                                 </Button>

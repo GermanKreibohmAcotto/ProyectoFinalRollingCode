@@ -21,6 +21,7 @@ const AdminUsersPage = () => {
     try {
       const getUsers = await clienteAxios.get('/users', config)
       setUsers(getUsers.data.getAllUsers)
+      
     } catch (error) {
       Swal.fire({
         title: "Oops...",
