@@ -32,14 +32,13 @@ const TableC = ({ imagen, titulo, descripcion, precio, idProduct }) => {
     }
     return (
         <div>
-            <Table striped bordered hover className='w-100'>
+            <Table striped bordered hover responsive className='w-100'>
                 <thead>
                     <tr>
                         <th>Imagen</th>
                         <th>Nombre</th>
                         <th>Precio</th>
                         <th>Descripcion</th>
-                        <th>Total</th>
                         <th>Eliminar</th>
                     </tr>
                 </thead>
@@ -49,9 +48,6 @@ const TableC = ({ imagen, titulo, descripcion, precio, idProduct }) => {
                         <td>{titulo}</td>
                         <td>{precio}</td>
                         <td>{descripcion}</td>
-                        <td>
-                            <input type="number" className='w-100' />
-                        </td>
 
                         <td>
                             <Link to={`#`} className='btn btn-danger' onClick={delProdCart}>Eliminar</Link>
