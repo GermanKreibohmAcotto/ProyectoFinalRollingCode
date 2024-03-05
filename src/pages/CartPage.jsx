@@ -4,9 +4,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import TableC from '../components/TableC';
+import Button from 'react-bootstrap/Button';
 
 const CartPage = () => {
   const [productsCart, setProductCart] = useState([])
+
+
 
   const getAllProductsCart = async () => {
     try {
@@ -33,10 +36,15 @@ const CartPage = () => {
             {
               productsCart?.map((product) =>
                 <div key={product._id}>
-                  <TableC imagen={product.imagen} titulo={product.titulo} precio={`${product.precio}$`} descripcion={product.descripcion} idPage={"FavPage"} idProduct={product._id} />
+                  <TableC imagen={product.imagen} titulo={product.titulo} precio={`$${product.precio}`} idPage={"FavPage"} idProduct={product._id} />
                 </div>
               )
             }
+          </Col>
+        </Row>
+        <Row>
+          <Col className='text-center'>
+            <Button variant="success">Pagar total!</Button>
           </Col>
         </Row>
       </Container>
