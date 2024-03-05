@@ -57,7 +57,7 @@ const HomePage = () => {
             <Container fluid className='px-0'>
                 <Container fluid>
                     <Row>
-                        <Col md={3}>
+                        <Col xs={12} md={3}>
                             <ListGroup variant="flush">
                                 <ListGroup.Item className='h3 text-center'>Categorias</ListGroup.Item>
                                 <ListGroup.Item>Caramelos</ListGroup.Item>
@@ -71,7 +71,7 @@ const HomePage = () => {
                                 <ListGroup.Item>Sin azúcar</ListGroup.Item>
                             </ListGroup>
                         </Col>
-                        <Col md={9} className='pe-0'>
+                        <Col xs={12} md={9} className='pe-0'>
                             <Container fluid className='pe-0'>
                                 <Row className='w-100'>
 

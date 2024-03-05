@@ -208,7 +208,7 @@ const NavbarC = () => {
     <>
       <Navbar expand="lg" className="cNavbar sticky-top text-center">
         <Container fluid>
-          <Navbar.Brand href={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"}><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'} width={'150'} /></Navbar.Brand>
+          <NavLink to={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"} className="mb-3 mb-md-0"><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'} width={'150'}/></NavLink>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
 
@@ -219,7 +219,12 @@ const NavbarC = () => {
                   <Form className='d-flex justify-content-center'>
                     <Row className='d-flex jusify-content-center w-100'>
                       <Col className='pe-0 w-75'>
-                       
+                      <Form.Control
+                            type="text"
+                            placeholder="Por ej: caramelos"
+                            className="rounded-0 rounded-start-2"
+                            onChange={handleChange}
+                          />
                       </Col>
                       <Col xs="auto" className='ps-0 '>
                         <Button onClick={handleClick} className='rounded-0 rounded-end-circle d-flex justify-content-center h-100 align-items-center'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search w-100" viewBox="0 0 16 16">
@@ -289,7 +294,7 @@ const NavbarC = () => {
             {
               token && role
                 ?
-                <Nav>
+                <Nav className='ms-auto'>
                   <NavLink className={"nav-link"} onClick={singOff}>
                     Cerrar sesion
                   </NavLink>

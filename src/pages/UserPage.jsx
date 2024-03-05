@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import CardsC from '../components/CardsC'
 import clienteAxios from '../helpers/clientAxios'
 import ListGroup from 'react-bootstrap/ListGroup';
+import Form from 'react-bootstrap/Form';
 
 export const UserPage = () => {
   const [products, setProducts] = useState([])
@@ -25,12 +26,25 @@ export const UserPage = () => {
     getAllProducts()
   }, [])
 
+  const [buscar, setBuscar] = useState("")
+   const buscador = (ev) => {
+        setBuscar(ev.target.value)
+        console.log(ev.target.value)
+    }
+
+    let results = []
+    if (!buscar) {
+        results = products
+    } else {
+       results = products.filter((dato) =>
+        dato.titulo.toLowerCase().includes(buscar.toLowerCase()))
+    }
   return (
     <>
       <Container fluid className='px-0'>
         <Container fluid>
           <Row>
-            <Col xs={3}>
+            <Col xs={12} md={3}>
               <ListGroup variant="flush">
                 <ListGroup.Item className='h3 text-center'>Categorias</ListGroup.Item>
                 <ListGroup.Item>Caramelos</ListGroup.Item>
@@ -44,16 +58,24 @@ export const UserPage = () => {
                 <ListGroup.Item>Sin azúcar</ListGroup.Item>
               </ListGroup>
             </Col>
-            <Col xs={9} className='pe-0'>
+            <Col xs={12} md={9} className='pe-0'>
               <Container fluid className='pe-0'>
                 <Row className='w-100'>
-                  {
-                    products?.map((product) =>
-                      <Col sm={12} md={6} lg={3} key={product._id} className='mb-3'>
-                        <CardsC imagen={product.imagen} titulo={product.titulo} descripcion={product.descripcion} precio={product.precio} idProduct={product._id} />
-                      </Col>
-                    )
-                  }
+                <Form.Control
+                                        type="text"
+                                        placeholder="Buscar por nombre de producto!"
+                                        className=" mr-sm-2 mt-3"
+                                        value={buscar}
+                                        onChange={buscador}
+                                    />
+
+                                    {
+                                        results?.map((product) =>
+                                            <Col sm={12} md={6} lg={3} key={product._id} className='mb-3'>
+                                                <CardsC imagen={product.imagen} titulo={product.titulo} descripcion={product.descripcion} precio={product.precio} idProduct={product._id} />
+                                            </Col>
+                                        )
+                                    }
                 </Row>
               </Container>
             </Col>
