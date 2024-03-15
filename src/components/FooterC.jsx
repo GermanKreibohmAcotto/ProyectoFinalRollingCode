@@ -11,8 +11,9 @@ const FooterC = () => {
         <div className='d-flex justify-content-center text-center'>
           <Row className='align-items-center'>
             <Col sm={12} lg={3} className=''>
-              <ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'}
-                alt={'logo'} width={'30%'} />
+            <Link className='nav-link' to='/nosotros'><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'}
+                alt={'logo'} width={'40%'} /></Link>
+              
             </Col>
             <Col sm={4} lg={3} className='p-3'>
               <b><u>Seguinos en nuestras redes</u></b>
