@@ -101,7 +101,7 @@ const ProductPage = () => {
             <Container className='d-flex justify-content-center my-3'>
                 <Row >
                     <Col sm={12} md={6} className='text-center'>
-                        <img className='w-50' src={product?.imagen} alt="" />
+                        <img className='w-50' src={product?.imagen} alt="Imagen del producto" />
                     </Col>
                     <Col sm={12} md={6} className='text-center mt-5'>
 
