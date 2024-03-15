@@ -11,7 +11,7 @@ const PrivateRoute = ({ children, role }) => {
       return children
     } else {
       if (roleUser === 'admin') {
-        navigate('/admin')
+        navigate('/usersAdmin')
       } else {
         navigate('/user')
       }

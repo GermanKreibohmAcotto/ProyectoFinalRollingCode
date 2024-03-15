@@ -82,7 +82,7 @@ const NavbarC = () => {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
             sessionStorage.setItem("idUsuario", JSON.stringify(sendFormLogin.data.idUsuario))
-            navigate("/admin")
+            navigate("/usersAdmin")
             handleClose()
 
           }
@@ -208,7 +208,7 @@ const NavbarC = () => {
     <>
       <Navbar expand="lg" className="cNavbar sticky-top text-center">
         <Container fluid>
-          <NavLink to={token && role === "user" ? "/user" : token && role === "admin" ? "/admin" : "/"} className="mb-3 mb-md-0"><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'} alt="Logo empresa" width={'150'} /></NavLink>
+          <NavLink to={token && role === "user" ? "/user" : token && role === "admin" ? "/usersAdmin" : "/"} className="mb-3 mb-md-0"><ImgC urlImage={'https://res.cloudinary.com/dqnqflduy/image/upload/v1707273799/wgbnztfg9lzpk6nsy4pz_jgprio.png'} alt="Logo empresa" width={'150'} /></NavLink>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
 
