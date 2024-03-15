@@ -35,8 +35,7 @@ const HomePage = () => {
 
     const buscador = (ev) => {
         setBuscar(ev.target.value)
-        console.log(ev.target.value)
-    }
+         }
 
     let results = []
     if (!buscar) {

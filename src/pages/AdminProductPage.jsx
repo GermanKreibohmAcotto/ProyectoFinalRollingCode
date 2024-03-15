@@ -134,8 +134,7 @@ const AdminProductPage = () => {
                 });
             }
         } catch (error) {
-            console.log(error)
-            Swal.fire({
+                      Swal.fire({
                 title: "Oops...",
                 text: "Surgio algun error en la actualizacion",
                 icon: "error",

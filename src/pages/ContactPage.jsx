@@ -28,8 +28,7 @@ const contactPage = () => {
         const templateId = "template_gjt8zq2"
         const apikey = "z89ogi_VH85JYCCJ_"
         emailjs.sendForm(serviceId, templateId, refForm.current, apikey)
-            .then(result => console.log(result.text))
-            .catch(error => console.error(error))
+           
         if (emailjs.sendForm) {
             Swal.fire({
                 title: "Se mando su consulta con exito!",
