@@ -49,7 +49,7 @@ const NavbarC = () => {
   }
 
   const sendFormI = async (ev) => {
-    setButtonDisabled(false)
+    setButtonDisabled(true)
     try {
       ev.preventDefault()
       const { correo, contrasenia } = formValuesI
@@ -74,6 +74,7 @@ const NavbarC = () => {
           title: "Inicio con exito",
           icon: "success"
         });
+        setButtonDisabled(false)
           if (sendFormLogin.data.role === "user") {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
