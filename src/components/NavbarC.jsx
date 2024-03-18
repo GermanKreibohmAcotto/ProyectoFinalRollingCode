@@ -19,6 +19,7 @@ const NavbarC = () => {
   const navigate = useNavigate()
   const token = JSON.parse(sessionStorage.getItem("token"))
   const role = JSON.parse(sessionStorage.getItem("role"))
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const singOff = (ev) => {
     ev.preventDefault()
@@ -48,6 +49,7 @@ const NavbarC = () => {
   }
 
   const sendFormI = async (ev) => {
+    setButtonDisabled(true)
     try {
       ev.preventDefault()
       const { correo, contrasenia } = formValuesI
@@ -72,6 +74,7 @@ const NavbarC = () => {
           title: "Inicio con exito",
           icon: "success"
         });
+        setButtonDisabled(false)
           if (sendFormLogin.data.role === "user") {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
@@ -329,7 +332,7 @@ const NavbarC = () => {
               <Form.Label>Contraseña</Form.Label>
               <Form.Control name="contrasenia" placeholder='Contraseña' type="password" className='mb-3' onChange={handleChangeI} value={formValuesI.contrasenia} />
             </Form.Group>
-            <Button onClick={sendFormI}>Iniciar Sesion</Button>
+            <Button onClick={sendFormI} disabled={isButtonDisabled} >Iniciar Sesion</Button>
           </Form>
         </Modal.Body>
       </Modal>
