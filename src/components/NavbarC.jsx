@@ -19,6 +19,7 @@ const NavbarC = () => {
   const navigate = useNavigate()
   const token = JSON.parse(sessionStorage.getItem("token"))
   const role = JSON.parse(sessionStorage.getItem("role"))
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const singOff = (ev) => {
     ev.preventDefault()
@@ -45,9 +46,11 @@ const NavbarC = () => {
   const handleChangeI = (ev) => {
     const { name, value } = ev.target
     setFormValuesI({ ...formValuesI, [name]: value })
+    setButtonDisabled(false)
   }
 
   const sendFormI = async (ev) => {
+    setButtonDisabled(true)
     try {
       ev.preventDefault()
       const { correo, contrasenia } = formValuesI
@@ -72,6 +75,7 @@ const NavbarC = () => {
           title: "Inicio con exito",
           icon: "success"
         });
+        setButtonDisabled(false)
           if (sendFormLogin.data.role === "user") {
             sessionStorage.setItem("token", JSON.stringify(sendFormLogin.data.token))
             sessionStorage.setItem("role", JSON.stringify(sendFormLogin.data.role))
@@ -97,7 +101,8 @@ const NavbarC = () => {
           confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
           </svg>`
-        });
+        })
+        ;
       }
     }
   }
@@ -329,7 +334,7 @@ const NavbarC = () => {
               <Form.Label>Contraseña</Form.Label>
               <Form.Control name="contrasenia" placeholder='Contraseña' type="password" className='mb-3' onChange={handleChangeI} value={formValuesI.contrasenia} />
             </Form.Group>
-            <Button onClick={sendFormI}>Iniciar Sesion</Button>
+            <Button onClick={sendFormI} disabled={isButtonDisabled} >Iniciar Sesion</Button>
           </Form>
         </Modal.Body>
       </Modal>
