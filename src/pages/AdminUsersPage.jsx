@@ -50,6 +50,7 @@ const AdminUsersPage = () => {
           title: "Actualizado con exito",
           icon: "success",
         });
+        getAllUsers()
       }
     } catch (error) {
       Swal.fire({
@@ -91,6 +92,7 @@ const AdminUsersPage = () => {
               text: "El usuario fue eliminado definitivamente",
               icon: "success"
             })
+            getAllUsers()
           }
         }
       });

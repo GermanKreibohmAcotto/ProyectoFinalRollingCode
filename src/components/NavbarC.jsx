@@ -263,9 +263,6 @@ const NavbarC = () => {
                       <NavLink to="/productsAdmin" className='nav-link'>
                         Productos
                       </NavLink>
-                      <NavLink to="/imagesAdmin" className='nav-link'>
-                        Imagenes
-                      </NavLink>
                     </Nav>
                   </>
                   :

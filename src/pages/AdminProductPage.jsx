@@ -10,6 +10,9 @@ import { number } from 'yup';
 
 const AdminProductPage = () => {
 
+    const preset_name = 'xk9ykyqk'
+    const cloud_name = 'dyktxboel'
+
     const [products, setProducts] = useState([]);
     const [show, setShow] = useState(false);
     const [productState, setProductState] = useState({});
@@ -38,12 +41,12 @@ const AdminProductPage = () => {
 
     const handleClick1 = async (ev) => {
         try {
-            ev.preventDefault()
-            const { titulo, codigo, precio, descripcion } = newProduct
-            if (!titulo || !precio || !codigo || !descripcion) {
+            ev.preventDefault();
+            const { titulo, codigo, precio, descripcion } = newProduct;
+            if (!titulo || !precio || !codigo || !descripcion || !imagen) {
                 Swal.fire({
                     title: "Oops...",
-                    text: "Algun campo esta vacio",
+                    text: "Algun campo esta vacio o la imagen no esta proporcionada",
                     icon: "error",
                     confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
@@ -51,23 +54,45 @@ const AdminProductPage = () => {
                 });
             } else {
 
+                const formData = new FormData();
+                formData.append('file', imagen);
+                formData.append('upload_preset', preset_name);
+
+                const cloudinaryResponse = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
+                    method: 'POST',
+                    body: formData
+                }).then(res => res.json());
+
+                const imageUrl = cloudinaryResponse.secure_url;
+                const publicId = cloudinaryResponse.public_id;
+
+
                 const data = new FormData()
                 data.append('titulo', newProduct.titulo)
                 data.append('codigo', newProduct.codigo)
                 data.append('precio', newProduct.precio)
                 data.append('descripcion', newProduct.descripcion)
-                data.append('imagen', imagen)
+                data.append('imagen', imageUrl)
+                data.append('imagenPublicId', publicId)
 
-                const createProd = await clienteAxios.post('/products', data, config)
+                const createProd = await clienteAxios.post('/products', data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        ...config.headers
+                    }
+                });
                 if (createProd) {
                     Swal.fire({
                         title: "Creado con exito",
                         icon: "success",
                     });
                     handleClose1()
+                    getAllProducts()
                 }
             }
         } catch (error) {
+
+            console.log(error)
 
             Swal.fire({
                 title: "Oops...",
@@ -114,36 +139,63 @@ const AdminProductPage = () => {
     const handleChange = (ev) => {
         setProductState({ ...productState, [ev.target.name]: ev.target.value })
     }
+
+    const handleChangeEditImg = (ev) => {
+        setProductState({ ...productState, imagen: ev.target.files[0] });
+    };
+
     const handleClick = async (ev) => {
         try {
-            ev.preventDefault()
+            ev.preventDefault();
 
-            const formData = new FormData()
-            formData.append('titulo', productState.titulo)
-            formData.append('codigo', productState.codigo)
-            formData.append('precio', productState.precio)
-            formData.append('descripcion', productState.descripcion)
+            const formData = new FormData();
+            formData.append('titulo', productState.titulo);
+            formData.append('codigo', productState.codigo);
+            formData.append('precio', productState.precio);
+            formData.append('descripcion', productState.descripcion);
 
-            const updateProduct = await clienteAxios.put(`/products/${productState._id}`, formData, config)
+            if (productState.imagen) {
+
+                const imageFormData = new FormData();
+                imageFormData.append('file', productState.imagen);
+                imageFormData.append('upload_preset', preset_name);
+
+                const cloudinaryResponse = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
+                    method: 'POST',
+                    body: imageFormData
+                }).then(res => res.json());
+
+                const imageUrl = cloudinaryResponse.secure_url;
+                const publicId = cloudinaryResponse.public_id;
+
+                formData.append('imagen', imageUrl);
+                formData.append('imagenPublicId', publicId);
+            }
+
+            const updateProduct = await clienteAxios.put(`/products/${productState._id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    ...config.headers
+                }
+            });
 
             if (updateProduct.status === 200) {
-                handleClose()
+                handleClose();
                 Swal.fire({
                     title: "Actualizado con exito",
                     icon: "success",
                 });
+                getAllProducts();
             }
         } catch (error) {
-                      Swal.fire({
+            Swal.fire({
                 title: "Oops...",
                 text: "Surgio algun error en la actualizacion",
                 icon: "error",
-                confirmButtonText: `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-return-left mx-5" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-          </svg>`
+                confirmButtonText: "OK"
             });
         }
-    }
+    };
 
     const deleteProduct = async (idProduct) => {
         try {
@@ -166,6 +218,7 @@ const AdminProductPage = () => {
                             text: "El producto fue eliminado definitivamente",
                             icon: "success"
                         })
+                        getAllProducts()
                     }
                 }
             });
@@ -283,7 +336,10 @@ const AdminProductPage = () => {
                                                     <Form.Control type="text" value={productState.codigo} onChange={handleChange} name='codigo' />
                                                 </Form.Group>
 
-                                               
+                                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                    <Form.Label>Imagen</Form.Label>
+                                                    <Form.Control type="file" onChange={handleChangeEditImg} />
+                                                </Form.Group>
                                                 <Button variant="primary" type="submit" onClick={handleClick}>
                                                     Guardar Cambios
                                                 </Button>

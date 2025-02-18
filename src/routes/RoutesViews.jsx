@@ -9,7 +9,6 @@ import { UserPage } from "../pages/UserPage"
 import FooterC from "../components/FooterC"
 import AdminProductPage from "../pages/AdminProductPage"
 import AdminUsersPage from "../pages/AdminUsersPage"
-import { AdminImagesPage } from "../pages/AdminImagesPage"
 import CartPage from "../pages/CartPage"
 import FavoritesPage from "../pages/FavoritesPage"
 import PrivateRoute from "../components/PrivateRoute"
@@ -42,11 +41,6 @@ const RoutesViews = () => {
                 <Route path="/usersAdmin" element={
                     <PrivateRoute role='admin'>
                         <AdminUsersPage />
-                    </PrivateRoute>
-                } />
-                <Route path="/imagesAdmin" element={
-                    <PrivateRoute role='admin'>
-                        <AdminImagesPage />
                     </PrivateRoute>
                 } />
                 <Route path="/productsAdmin" element={
