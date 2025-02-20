@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import TableC from '../components/TableC';
 import Button from 'react-bootstrap/Button';
+import Swal from 'sweetalert2';
 
 const CartPage = () => {
   const [productsCart, setProductCart] = useState([])

@@ -4,6 +4,7 @@ import CardsC from '../components/CardsC'
 import clienteAxios from '../helpers/clientAxios'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
+import Swal from 'sweetalert2';
 
 export const UserPage = () => {
   const [products, setProducts] = useState([])

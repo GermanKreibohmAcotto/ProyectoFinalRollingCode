@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import CardsC from '../components/CardsC'
 import { useEffect } from 'react'
 import clienteAxios, { config } from '../helpers/clientAxios'
+import Swal from 'sweetalert2';
 
 const FavoritesPage = () => {
   const [productsFav, setProductFav] = useState([])
